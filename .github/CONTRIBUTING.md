@@ -10,8 +10,8 @@ Thank you for looking at this. Every contribution matters — a new video, a bug
 2. Follow the local development setup in the root [README](../README.md).
 3. Create a branch: `git checkout -b fix/your-description` or `feat/your-description`.
 4. Make your change.
-5. Run the test suite: `cd be-gandalab && PYTHONPATH=. pytest -v tests/`.
-6. Run the TypeScript check: `cd fe-gandalab && npx tsc --noEmit`.
+5. Run the test suite: `cd be-open-vidlib && PYTHONPATH=. pytest -v tests/`.
+6. Run the TypeScript check: `cd fe-open-vidlib && npx tsc --noEmit`.
 7. Open a pull request.
 
 ---
@@ -20,8 +20,8 @@ Thank you for looking at this. Every contribution matters — a new video, a bug
 
 If you are not sure where to start:
 
-- **Add a video** — add a new YouTube lesson and its transcript file to `be-gandalab/app/db/seed_data/`. See the existing files for the format.
-- **Add a language** — add a new voice preset in `be-gandalab/app/core/voice_presets.py` and a button in `fe-gandalab/app/library/[id]/resource-page-client.tsx`.
+- **Add a video** — add a new YouTube lesson and its transcript file to `be-open-vidlib/app/db/seed_data/`. See the existing files for the format.
+- **Add a language** — add a new voice preset in `be-open-vidlib/app/core/voice_presets.py` and a button in `fe-open-vidlib/app/library/[id]/resource-page-client.tsx`.
 - **Write a test** — the `tests/` folder always has room for more cases, especially for the Mistral service fallbacks.
 - **Fix a bug** — check open issues.
 
@@ -42,7 +42,7 @@ A video needs:
 2. A word-level transcript: a JSON file with the shape `{ "words": [{ "word": "...", "start": 0.0, "end": 0.5 }, ...] }`.
 
 You can generate the transcript with any ASR tool (OpenAI Whisper, faster-whisper, etc.).  
-Place the file in `be-gandalab/app/db/seed_data/` and follow the naming convention there.
+Place the file in `be-open-vidlib/app/db/seed_data/` and follow the naming convention there.
 
 ---
 

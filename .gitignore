@@ -19,7 +19,7 @@ out/
 *.tsbuildinfo
 
 # Generated assets (dubbed audio files)
-be-gandalab/static/dubs/
+be-open-vidlib/static/dubs/
 
 # OS
 .DS_Store
