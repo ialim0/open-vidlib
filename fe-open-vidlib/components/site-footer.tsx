@@ -11,19 +11,11 @@ export function SiteFooter() {
             <div className="container mx-auto px-4 py-8">
                 <div className="flex flex-col md:flex-row items-center justify-between gap-4">
                     <p className="text-sm text-muted-foreground">
-                        © 2025 {t.home.title}. {t.home.footerRights}
+                        © 2026 {t.home.title}. {t.home.footerRights}
                     </p>
-                    <div className="flex items-center gap-4">
-                        <Link href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                            {t.home.privacy}
-                        </Link>
-                        <Link href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                            {t.home.terms}
-                        </Link>
-                        <Link href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                            {t.home.contact}
-                        </Link>
-                    </div>
+                    <Link href="/about" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                        About
+                    </Link>
                 </div>
             </div>
         </footer>
