@@ -69,11 +69,13 @@ export function ResourcePageClient({ resource }: ResourcePageClientProps) {
         setDubbingLoadingLang(targetLang)
         try {
             const cached = await getDubbedAudioTrack(resource.id, targetLang)
-            if (cached?.segments?.length) {
+            if (cached?.segments?.length && cached.segments.every((segment) => segment.translated_text?.trim())) {
                 setActiveDubTrack(cached)
                 return
             }
 
+            // Older cached audio may not have a caption manifest yet. The POST
+            // endpoint backfills captions without regenerating valid MP3 files.
             const track = await requestDubbedTrack(resource.id, targetLang, "female")
             if (!track?.segments?.length) throw new Error("No translated audio was returned")
             setActiveDubTrack(track)

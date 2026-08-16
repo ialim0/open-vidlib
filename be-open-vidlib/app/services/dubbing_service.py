@@ -51,7 +51,8 @@ def create_dubbed_track(video_id: str, target_lang: str, voice_gender: str, db: 
         ).first()
         if existing_dub and Path(existing_dub.audio_path.lstrip(chr(47))).exists() and Path(existing_dub.audio_path.lstrip(chr(47))).stat().st_size > 1024:
             if seg.id not in translated_captions:
-                translated_captions[seg.id] = getattr(seg, "translated_text", None) or (seg.text if target_lang == "en" else seg.text)
+                translated_captions[seg.id] = seg.text if target_lang == "en" else translate_segment(seg.text, target_lang)
+                seg.translated_text = translated_captions[seg.id]
             dubbed_segments.append(existing_dub)
             continue
 
