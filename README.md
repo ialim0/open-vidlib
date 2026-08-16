@@ -34,6 +34,26 @@ The goal is to make high-quality STEM content navigable and accessible in West A
 
 The app is fully usable without a Mistral key — every AI feature degrades gracefully to keyword heuristics or cached seed data.
 
+## Product tour
+
+These screenshots show the current learner experience:
+
+| Home library | French video with synchronized word-level captions |
+|---|---|
+| ![Open VidLib home page](docs/screenshots/home-page.png) | ![French video with word-level captions](docs/screenshots/french-video-with-word-level-caption.png) |
+
+| Full-video translation | Semantic video search |
+|---|---|
+| ![Full-video translation controls](docs/screenshots/full-video-translation.png) | ![Semantic search across the video](docs/screenshots/semantic-video-search.png) |
+
+| RAG answer with playback jump | Note-taking while learning |
+|---|---|
+| ![RAG answer with timestamp jump](docs/screenshots/rag-video-jump.png) | ![Video note-taking](docs/screenshots/note-taker.png) |
+
+Together, these flows demonstrate the project’s core loop: discover a lesson,
+search inside it, jump to evidence, switch language, follow synchronized
+captions, and keep personal notes.
+
 ## Vision and impact
 
 Open VidLib aims to make the language of a lesson a choice, not a barrier. Imagine watching any educational video, switching its spoken language in real time, and seeing captions remain synchronized with the translated audio. Imagine searching across every part of a long lesson for a formula, example, or explanation, then jumping directly to that moment with playback and transcript context.

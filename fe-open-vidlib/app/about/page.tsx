@@ -1,4 +1,5 @@
 import Link from "next/link"
+import Image from "next/image"
 import { ArrowLeft, Database, Globe, Search, Sparkles } from "lucide-react"
 
 const technologies = [
@@ -35,6 +36,33 @@ export default function AboutPage() {
           <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
             Learners can watch curated lessons, jump through word-level transcripts, search for concepts, ask Coumba questions grounded in a video, and practice with multilingual flashcards.
           </p>
+        </section>
+
+        <section className="mt-16">
+          <div className="mb-8">
+            <h2 className="text-3xl font-bold">See Open VidLib in action</h2>
+            <p className="mt-3 max-w-3xl leading-relaxed text-muted-foreground">
+              Explore the current experience: discover lessons, search through a video, jump from an AI answer to its timestamp, switch to French audio, follow synchronized captions, and take notes.
+            </p>
+          </div>
+          <div className="grid gap-5 md:grid-cols-2">
+            {[
+              ["/docs/screenshots/home-page.png", "Home library", "Browse the curated STEM video library."],
+              ["/docs/screenshots/french-video-with-word-level-caption.png", "French playback and captions", "Listen in French while following synchronized captions."],
+              ["/docs/screenshots/full-video-translation.png", "Full-video translation", "Generate and switch to a cached translated voice track."],
+              ["/docs/screenshots/semantic-video-search.png", "Semantic video search", "Find a concept and jump directly to its timestamp."],
+              ["/docs/screenshots/rag-video-jump.png", "Grounded RAG answer", "Ask Coumba and jump from an answer to supporting video evidence."],
+              ["/docs/screenshots/note-taker.png", "Personal notes", "Capture learning notes without leaving the lesson."],
+            ].map(([src, title, description]) => (
+              <figure key={src} className="overflow-hidden rounded-2xl border bg-card shadow-sm">
+                <Image src={src} alt={title} width={1366} height={869} className="h-64 w-full object-contain bg-muted/20" />
+                <figcaption className="p-4">
+                  <h3 className="font-semibold">{title}</h3>
+                  <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{description}</p>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
         </section>
 
         <section className="mt-16 rounded-3xl border border-primary/20 bg-primary/5 p-8 md:p-10">
