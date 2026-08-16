@@ -1,4 +1,6 @@
-# GandaLab
+# Open VidLib
+
+**Author:** ialim0 · [Follow me on LinkedIn](https://linkedin.com/in/ialim)
 
 An open-source educational video platform that pairs YouTube lessons with an AI tutor.  
 Students can search any concept inside a video, ask questions grounded in the transcript, and listen to the lesson in their own language — all without leaving the page.
