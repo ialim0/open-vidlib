@@ -1,4 +1,4 @@
-# Contributing to GandaLab
+# Contributing to Open VidLib
 
 Thank you for looking at this. Every contribution matters — a new video, a bug fix, a typo correction.
 

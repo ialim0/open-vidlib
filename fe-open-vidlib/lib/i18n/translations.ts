@@ -21,7 +21,7 @@ export const translations = {
       close: "Close",
     },
     home: {
-      title: "Gandalab",
+      title: "Open VidLib",
       subtitle: "Democratizing Learning Through AI",
       tagline: "Empowering learners worldwide with intelligent, interactive educational tools",
       statsStudents: "Active Learners",
@@ -63,7 +63,7 @@ export const translations = {
       },
     },
     about: {
-      title: "About Gandalab",
+      title: "About Open VidLib",
       subtitle: "Meet Our Team",
       description:
         "We are a passionate team of educators, engineers, and data scientists committed to democratizing access to quality education through innovative AI-powered learning tools.",
@@ -307,9 +307,9 @@ export const translations = {
       explanation: "Explanation",
     },
     homeChat: {
-      welcome: "Hello! Welcome to GandaLab. How can I help you today?",
+      welcome: "Hello! Welcome to Open VidLib. How can I help you today?",
       placeholder: "Type a message...",
-      title: "GandaLab Assistant",
+      title: "Open VidLib Assistant",
       online: "Online",
       demoResponse: "I'm a demo assistant. I can't answer real questions yet, but I'm glad you're here!",
     },
@@ -334,7 +334,7 @@ export const translations = {
       close: "Fermer",
     },
     home: {
-      title: "Gandalab",
+      title: "Open VidLib",
       subtitle: "Démocratiser l'Apprentissage par l'IA",
       tagline: "Autonomiser les apprenants du monde entier avec des outils éducatifs intelligents et interactifs",
       statsStudents: "Apprenants Actifs",
@@ -378,7 +378,7 @@ export const translations = {
       },
     },
     about: {
-      title: "À Propos de Gandalab",
+      title: "À Propos de Open VidLib",
       subtitle: "Rencontrez Notre Équipe",
       description:
         "Nous sommes une équipe passionnée d'éducateurs, d'ingénieurs et de scientifiques des données engagés à démocratiser l'accès à une éducation de qualité grâce à des outils d'apprentissage innovants alimentés par l'IA.",
@@ -622,9 +622,9 @@ export const translations = {
       explanation: "Explication",
     },
     homeChat: {
-      welcome: "Bonjour ! Bienvenue sur GandaLab. Comment puis-je vous aider aujourd'hui ?",
+      welcome: "Bonjour ! Bienvenue sur Open VidLib. Comment puis-je vous aider aujourd'hui ?",
       placeholder: "Tapez un message...",
-      title: "Assistant GandaLab",
+      title: "Assistant Open VidLib",
       online: "En ligne",
       demoResponse: "Je suis un assistant de démonstration. Je ne peux pas encore répondre à de vraies questions, mais je suis heureux que vous soyez là !",
     },
@@ -649,7 +649,7 @@ export const translations = {
       close: "Tëj",
     },
     home: {
-      title: "Gandalab",
+      title: "Open VidLib",
       subtitle: "Jàng Bu Baax Ci Yépp",
       tagline: "Jàng bu baax ak xaralalug ci ñépp ñi ci àdduna",
       statsStudents: "Ñi Ngi Jàng",
@@ -691,7 +691,7 @@ export const translations = {
       },
     },
     about: {
-      title: "Ci Sunuy Yoon wi Gandalab",
+      title: "Ci Sunuy Yoon wi Open VidLib",
       subtitle: "Gis Sunuy Ekip",
       description: "Sunuy ekip dafa baax, ñu ngi jàngale ak ingénieur ci yépp ñi ci àdduna.",
       mission: "Sunuy Objectif",
@@ -933,9 +933,9 @@ export const translations = {
       explanation: "Explication",
     },
     homeChat: {
-      welcome: "Salaam! Dalal ak jàmm ci GandaLab. Naka laa la mëna dimbale tay?",
+      welcome: "Salaam! Dalal ak jàmm ci Open VidLib. Naka laa la mëna dimbale tay?",
       placeholder: "Bindal sa messas...",
-      title: "Ndimbal GandaLab",
+      title: "Ndimbal Open VidLib",
       online: "Online",
       demoResponse: "Man may ndimbal demo. Mënuma tontu laaj yu dëgg, waaye bég naa ci sa téew!",
     },
@@ -960,7 +960,7 @@ export const translations = {
       close: "Uddu",
     },
     home: {
-      title: "Gandalab",
+      title: "Open VidLib",
       subtitle: "Janngude Mo Feeñii Kala",
       tagline: "Janngude mo feeñii neɗɗo kala e duniyaaru",
       statsStudents: "Jangɓe",
@@ -1002,7 +1002,7 @@ export const translations = {
       },
     },
     about: {
-      title: "Ɓaɗal Gandalab",
+      title: "Ɓaɗal Open VidLib",
       subtitle: "Ɗiiɗoo Ekipaaji Amen",
       description: "Min ko ekiip janngooɓe, enjinyeeruuɓe e saynooɓe keɓaaɓe e yimɓe fof e duniyaaru.",
       mission: "Peeragol Amen",
@@ -1244,9 +1244,9 @@ export const translations = {
       explanation: "Explication",
     },
     homeChat: {
-      welcome: "A jaaraama! A jaɓɓaama e GandaLab. No mballir-maa-mi hannde?",
+      welcome: "A jaaraama! A jaɓɓaama e Open VidLib. No mballir-maa-mi hannde?",
       placeholder: "Winndu ɗoo...",
-      title: "Ballal GandaLab",
+      title: "Ballal Open VidLib",
       online: "Online",
       demoResponse: "Miin ko mi balloowo demo. Mi waawaa jaabaade naamne goonga tawo, kono mi weltiima e ngalɗoo!",
     },
@@ -1271,7 +1271,7 @@ export const translations = {
       close: "Datugu",
     },
     home: {
-      title: "Gandalab",
+      title: "Open VidLib",
       subtitle: "Ka Kalan Bɛɛ La",
       tagline: "Ka mɔgɔw bɛɛ dɛmɛ ka kalan ye diɲɛ kɔnɔ",
       statsStudents: "Kalandenw",
@@ -1313,7 +1313,7 @@ export const translations = {
       },
     },
     about: {
-      title: "An Ka Gandalab",
+      title: "An Ka Open VidLib",
       subtitle: "An Ka Ekip",
       description: "An ye kalandenw, ɛnjiniyɛriw ani donnikɛlaw ye, k'an ka seko ka kalan ɲuman bɛɛ la.",
       mission: "An Ka Laɲini",
@@ -1555,9 +1555,9 @@ export const translations = {
       explanation: "Ɲɛfɔli",
     },
     homeChat: {
-      welcome: "Aw ni sɔgɔma! I bisimila GandaLab kan. N bɛ se ka i dɛmɛ cogo di bi?",
+      welcome: "Aw ni sɔgɔma! I bisimila Open VidLib kan. N bɛ se ka i dɛmɛ cogo di bi?",
       placeholder: "Sɛbɛnni kɛ yan...",
-      title: "GandaLab Dɛmɛbaga",
+      title: "Open VidLib Dɛmɛbaga",
       online: "Online",
       demoResponse: "Ne ye demo dɛmɛbaga ye. Ne tɛ se ka ɲininkali tiɲɛw jaabi fɔlɔ, nka n ninsɔn ka di i ka yan!",
     },

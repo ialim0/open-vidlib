@@ -30,7 +30,7 @@ export default function AboutPage() {
           </div>
           <h1 className="text-4xl font-extrabold tracking-tight md:text-6xl">About the project</h1>
           <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
-            Open VidLib is the open-source evolution of GandaLab, an educational video platform created to make STEM lessons easier to understand, search, and discuss. It was born at the AIMS Scientific Innovation Hackathon in Senegal, where the project won first prize in the EdTech category.
+            Open VidLib is the open-source evolution of Open VidLib, an educational video platform created to make STEM lessons easier to understand, search, and discuss. It was born at the AIMS Scientific Innovation Hackathon in Senegal, where the project won first prize in the EdTech category.
           </p>
           <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
             Learners can watch curated lessons, jump through word-level transcripts, search for concepts, ask Coumba questions grounded in a video, and practice with multilingual flashcards.

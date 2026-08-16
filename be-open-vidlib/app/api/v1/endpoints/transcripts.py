@@ -71,7 +71,7 @@ def create_transcript(
 # ---------------------------------------------------------------------------
 # Self-hosted ASR endpoints (roadmap — not yet implemented)
 # These will use faster-whisper or the OpenAI Whisper API once configured.
-# Tracked in: https://github.com/your-username/gandalab/issues/XX
+# Tracked in: https://github.com/your-username/openvidlib/issues/XX
 # ---------------------------------------------------------------------------
 
 @router.post(

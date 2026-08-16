@@ -1,13 +1,15 @@
-# GandaLab — three-service stack
+# Open VidLib — three-service stack
 # Requires Docker ≥ 24 with Compose v2.
 # Copy .env.example → .env and set MISTRAL_API_KEY before running.
+
+name: open-vidlib
 
 services:
   db:
     image: pgvector/pgvector:pg16
     restart: unless-stopped
     environment:
-      POSTGRES_DB:       ${POSTGRES_DB:-gandalab}
+      POSTGRES_DB:       ${POSTGRES_DB:-openvidlib}
       POSTGRES_USER:     ${POSTGRES_USER:-postgres}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changeme}
     ports:
@@ -15,7 +17,7 @@ services:
     volumes:
       - db_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres} -d ${POSTGRES_DB:-gandalab}"]
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres} -d ${POSTGRES_DB:-openvidlib}"]
       interval: 5s
       timeout: 5s
       retries: 10
@@ -28,7 +30,7 @@ services:
       db:
         condition: service_healthy
     environment:
-      DATABASE_URL:          postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-changeme}@db:5432/${POSTGRES_DB:-gandalab}
+      DATABASE_URL:          postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-changeme}@db:5432/${POSTGRES_DB:-openvidlib}
       MISTRAL_API_KEY:       ${MISTRAL_API_KEY:-}
       MISTRAL_EMBED_MODEL:   ${MISTRAL_EMBED_MODEL:-mistral-embed}
       MISTRAL_LLM_MODEL:     ${MISTRAL_LLM_MODEL:-mistral-large-latest}

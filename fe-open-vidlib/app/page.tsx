@@ -72,14 +72,14 @@ export default function HomePage() {
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Image
-              src="/gandalab-logo.png"
-              alt="GandaLab Logo"
+              src="/open-vidlib-logo.png"
+              alt="Open VidLib Logo"
               width={38}
               height={38}
               className="rounded-lg shadow-sm"
             />
             <div>
-              <span className="text-xl font-bold tracking-tight text-foreground">GandaLab</span>
+              <span className="text-xl font-bold tracking-tight text-foreground">Open VidLib</span>
               <span className="hidden sm:inline-block ml-2 text-xs px-2 py-0.5 rounded-full bg-primary/10 text-primary font-medium border border-primary/20">
                 Open Source
               </span>

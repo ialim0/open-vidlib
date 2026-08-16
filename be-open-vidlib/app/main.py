@@ -13,18 +13,18 @@ logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [%(levelname)s] %(name)s: %(message)s"
 )
-logger = logging.getLogger("gandalab")
+logger = logging.getLogger("openvidlib")
 
 # Ensure static/dubs directory exists
 os.makedirs("static/dubs", exist_ok=True)
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    logger.info("Initializing GandaLab database...")
+    logger.info("Initializing Open VidLib database...")
     init_db()
-    logger.info("GandaLab Video Library API ready.")
+    logger.info("Open VidLib Video Library API ready.")
     yield
-    logger.info("Shutting down GandaLab Video Library API...")
+    logger.info("Shutting down Open VidLib Video Library API...")
 
 app = FastAPI(
     title=settings.PROJECT_NAME,

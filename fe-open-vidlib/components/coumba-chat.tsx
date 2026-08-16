@@ -299,7 +299,7 @@ export function CoumbaChat({
                                 <div key={message.id} className={`flex gap-3 ${message.role === 'user' ? 'flex-row-reverse' : ''}`}>
                                     {message.role === 'assistant' && (
                                         <Avatar className="h-8 w-8 mt-1 border">
-                                            <AvatarImage src="/gandalab-logo.png" />
+                                            <AvatarImage src="/open-vidlib-logo.png" />
                                             <AvatarFallback className="bg-primary/10 text-primary text-xs">AI</AvatarFallback>
                                         </Avatar>
                                     )}
@@ -421,7 +421,7 @@ export function CoumbaChat({
                             {(isSendingMessage || isGeneratingQuiz) && (
                                 <div className="flex gap-3">
                                     <Avatar className="h-8 w-8 mt-1 border">
-                                        <AvatarImage src="/gandalab-logo.png" />
+                                        <AvatarImage src="/open-vidlib-logo.png" />
                                         <AvatarFallback className="bg-primary/10 text-primary text-xs">AI</AvatarFallback>
                                     </Avatar>
                                     <div className="bg-muted/50 border rounded-2xl rounded-tl-none px-4 py-3 flex items-center gap-2">

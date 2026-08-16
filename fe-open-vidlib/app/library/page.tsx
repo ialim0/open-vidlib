@@ -2,7 +2,7 @@ import { LibraryClient } from './library-client'
 import { getResources } from '@/lib/resources'
 
 export const metadata = {
-    title: 'Library - GandaLab',
+    title: 'Library - Open VidLib',
     description: 'Explore our collection of educational resources.',
 }
 

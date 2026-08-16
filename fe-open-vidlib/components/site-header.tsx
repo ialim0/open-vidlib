@@ -15,8 +15,8 @@ export function SiteHeader() {
                     <div className="flex items-center gap-3">
                         <Link href="/" className="flex items-center gap-3">
                             <Image
-                                src="/gandalab-logo.png"
-                                alt="GandaLab Logo"
+                                src="/open-vidlib-logo.png"
+                                alt="Open VidLib Logo"
                                 width={40}
                                 height={40}
                                 className="rounded-lg"

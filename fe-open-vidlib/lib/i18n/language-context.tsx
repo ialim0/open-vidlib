@@ -16,7 +16,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const [language, setLanguageState] = useState<Language>("en")
 
   useEffect(() => {
-    const savedLang = localStorage.getItem("gandalab-language") as Language
+    const savedLang = localStorage.getItem("openvidlib-language") as Language
     if (
       savedLang &&
       (savedLang === "en" || savedLang === "fr" || savedLang === "wo" || savedLang === "ff" || savedLang === "bm")
@@ -27,7 +27,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
 
   const setLanguage = (lang: Language) => {
     setLanguageState(lang)
-    localStorage.setItem("gandalab-language", lang)
+    localStorage.setItem("openvidlib-language", lang)
   }
 
   const t = (translations[language] || translations.en) as typeof translations.en

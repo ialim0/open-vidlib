@@ -8,11 +8,11 @@ const _geist = Geist({ subsets: ["latin"] })
 const _geistMono = Geist_Mono({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Gandalab - Interactive Learning Platform",
+  title: "Open VidLib - Interactive Learning Platform",
   description: "Democratizing learning through AI-powered educational tools",
   icons: {
-    icon: "/gandalab-logo.png",
-    apple: "/gandalab-logo.png",
+    icon: "/open-vidlib-logo.png",
+    apple: "/open-vidlib-logo.png",
   },
 }
 

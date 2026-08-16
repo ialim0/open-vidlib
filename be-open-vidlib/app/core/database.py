@@ -23,7 +23,7 @@ else:
         )
     except Exception as e:
         logger.warning(f"Failed to initialize PostgreSQL engine with URL {db_url}: {e}. Falling back to SQLite for local development.")
-        db_url = "sqlite:///./gandalab.db"
+        db_url = "sqlite:///./openvidlib.db"
         engine = create_engine(db_url, connect_args={"check_same_thread": False})
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)

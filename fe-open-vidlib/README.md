@@ -1,6 +1,6 @@
-# fe-open-vidlib — GandaLab Web
+# fe-open-vidlib — Open VidLib Web
 
-Next.js 14 (App Router) frontend for GandaLab.
+Next.js 14 (App Router) frontend for Open VidLib.
 
 ---
 

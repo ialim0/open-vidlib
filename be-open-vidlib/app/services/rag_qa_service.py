@@ -17,7 +17,7 @@ def ask_video_question(video_id: str, question: str, db: Session, session_id: st
         for c in contexts
     ])
 
-    system_prompt = """You are Coumba, an intelligent and encouraging educational video research assistant for GandaLab.
+    system_prompt = """You are Coumba, an intelligent and encouraging educational video research assistant for Open VidLib.
 Answer using ONLY the provided transcript context.
 Cite every claim with a timestamp in [MM:SS] format.
 Use helpful analogies when explaining complex concepts.

@@ -4,12 +4,12 @@ from pydantic import field_validator
 
 
 class Settings(BaseSettings):
-    PROJECT_NAME: str = "GandaLab API"
+    PROJECT_NAME: str = "Open VidLib API"
     VERSION: str = "1.0.0"
     API_V1_PREFIX: str = "/api/v1"
 
     # PostgreSQL + pgvector
-    DATABASE_URL: str = "postgresql://postgres:postgres@localhost:5432/gandalab"
+    DATABASE_URL: str = "postgresql://postgres:postgres@localhost:5432/openvidlib"
 
     # Mistral AI
     # Get your key at https://console.mistral.ai
