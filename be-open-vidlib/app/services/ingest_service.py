@@ -1,13 +1,21 @@
+import hashlib
 import logging
 import math
-import hashlib
-from typing import List, Dict, Any
+import re
+from typing import Any, Dict, List
+
 from sqlalchemy.orm import Session
+
 from app.core.config import settings
-from app.core.mistral_client import get_mistral_client, EMBED_MODEL
+from app.core.mistral_client import EMBED_MODEL, get_mistral_client
 from app.models.video_segment import VideoSegment
 
 logger = logging.getLogger(__name__)
+
+TARGET_CHARS = 420
+MAX_CHARS = 650
+OVERLAP_CAPTIONS = 2
+
 
 def _get_mock_embedding(text: str, dim: int = 1024) -> List[float]:
     """Deterministic normalized mock embedding for tests and offline development."""
@@ -16,74 +24,81 @@ def _get_mock_embedding(text: str, dim: int = 1024) -> List[float]:
     norm = math.sqrt(sum(x * x for x in vec)) or 1.0
     return [x / norm for x in vec]
 
+
+def _clean_caption(caption: Dict[str, Any]) -> Dict[str, Any] | None:
+    text = re.sub(r"\s+", " ", str(caption.get("text", ""))).strip()
+    if not text:
+        return None
+    start = float(caption.get("start", 0.0))
+    end = max(start, float(caption.get("end", start)))
+    return {"text": text, "start": start, "end": end}
+
+
+def _build_chunks(captions: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    """Build timestamped, sentence-aware windows with small overlap for context continuity."""
+    cleaned = [item for caption in captions if (item := _clean_caption(caption))]
+    chunks: List[Dict[str, Any]] = []
+    window: List[Dict[str, Any]] = []
+    chars = 0
+
+    for caption in cleaned:
+        window.append(caption)
+        chars += len(caption["text"]) + 1
+        boundary = bool(re.search(r"[.!?]$", caption["text"]))
+        if chars < TARGET_CHARS or (not boundary and chars < MAX_CHARS):
+            continue
+
+        chunks.append({
+            "text": " ".join(item["text"] for item in window).strip(),
+            "start": window[0]["start"],
+            "end": window[-1]["end"],
+        })
+        window = window[-OVERLAP_CAPTIONS:]
+        chars = sum(len(item["text"]) + 1 for item in window)
+
+    if window:
+        final = {
+            "text": " ".join(item["text"] for item in window).strip(),
+            "start": window[0]["start"],
+            "end": window[-1]["end"],
+        }
+        if not chunks or final["text"] != chunks[-1]["text"]:
+            chunks.append(final)
+    return chunks
+
+
 def chunk_and_embed(video_id: str, captions: List[Dict[str, Any]], db: Session, language: str = "en") -> int:
-    """
-    captions: [{"text": "...", "start": 12.5, "end": 15.2}, ...]
-    Strategy: chunk by ~500 chars with sentence awareness, preserving start/end timestamps.
-    """
-    if not captions:
+    """Create overlapping transcript windows and embed them in one API batch."""
+    chunks = _build_chunks(captions)
+    if not chunks:
         return 0
 
-    chunks = []
-    buffer_text = ""
-    buffer_start = None
-
-    for cap in captions:
-        if buffer_start is None:
-            buffer_start = cap.get("start", 0.0)
-
-        buffer_text += " " + cap.get("text", "")
-
-        if len(buffer_text) >= 500:
-            chunks.append({
-                "text": buffer_text.strip(),
-                "start": buffer_start,
-                "end": cap.get("end", buffer_start)
-            })
-            buffer_text = ""
-            buffer_start = None
-
-    if buffer_text.strip():
-        last_end = captions[-1].get("end", buffer_start or 0.0)
-        chunks.append({
-            "text": buffer_text.strip(),
-            "start": buffer_start if buffer_start is not None else 0.0,
-            "end": last_end
-        })
-
-    texts = [c["text"] for c in chunks]
-    embeddings = []
-
+    texts = [chunk["text"] for chunk in chunks]
     client = get_mistral_client()
     if client and settings.MISTRAL_API_KEY:
         try:
-            response = client.embeddings.create(
-                model=EMBED_MODEL,
-                inputs=texts
-            )
-            embeddings = [d.embedding for d in response.data]
-        except Exception as e:
-            logger.warning(f"Mistral embedding failed, using deterministic fallback: {e}")
-            embeddings = [_get_mock_embedding(t) for t in texts]
+            response = client.embeddings.create(model=EMBED_MODEL, inputs=texts)
+            embeddings = [item.embedding for item in response.data]
+        except Exception as exc:
+            logger.warning("Mistral embedding failed, using deterministic fallback: %s", exc)
+            embeddings = [_get_mock_embedding(text) for text in texts]
     else:
-        embeddings = [_get_mock_embedding(t) for t in texts]
+        embeddings = [_get_mock_embedding(text) for text in texts]
 
-    # Clear old segments for this video if re-ingesting
     db.query(VideoSegment).filter(
         VideoSegment.video_id == video_id,
-        VideoSegment.language == language
+        VideoSegment.language == language,
     ).delete()
 
-    for chunk, emb in zip(chunks, embeddings):
-        seg = VideoSegment(
+    for chunk, embedding in zip(chunks, embeddings):
+        db.add(VideoSegment(
             video_id=video_id,
             text=chunk["text"],
             start_time=chunk["start"],
             end_time=chunk["end"],
-            embedding=emb,
-            language=language
-        )
-        db.add(seg)
+            embedding=embedding,
+            language=language,
+        ))
 
     db.commit()
     return len(chunks)

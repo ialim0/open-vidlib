@@ -27,9 +27,9 @@ The goal is to make high-quality STEM content navigable and accessible in West A
 |---|---|
 | **Video library** | Curated YouTube lessons in Science, Technology, Engineering, Mathematics — shown directly on the landing page |
 | **Word-level captions** | Click any word in the transcript to jump to that moment in the video |
-| **Semantic search** | Type a concept → find the exact timestamps where it appears (`mistral-embed` + pgvector cosine distance) |
+| **Hybrid semantic search** | Combine `mistral-embed` + pgvector with BM25-style lexical matching, reciprocal-rank fusion, and duplicate reduction |
 | **RAG Q&A** | Ask Coumba (the AI tutor) a question → grounded answer with `[MM:SS]` citations (`mistral-large-latest`) |
-| **AI dubbing** | Translate the lesson and generate a voice track in French, Spanish, Wolof, Pulaar, or Bambara (`voxtral-mini-tts`) |
+| **AI dubbing** | Translate the lesson and generate cached English or French voice tracks (`voxtral-mini-tts`) |
 | **Flashcard quiz** | Auto-generated multiple-choice questions from the transcript |
 
 The app is fully usable without a Mistral key — every AI feature degrades gracefully to keyword heuristics or cached seed data.
@@ -55,9 +55,9 @@ docker-compose.yml    PostgreSQL (pgvector) + API + web
 ### Mistral pipeline
 
 ```
-captions (JSON)  →  chunk ~500 chars  →  mistral-embed (1024-dim)  →  pgvector
+captions (JSON)  →  overlapping sentence windows  →  mistral-embed (1024-dim)  →  pgvector
                                                                          ↓
-user query  →  mistral-embed  →  cosine distance  →  top-k chunks  →  mistral-large  →  answer
+user query  →  vector + lexical retrieval  →  rank fusion + deduplication  →  evidence window  →  mistral-large  →  cited answer
                                                                          ↓
                                                     mistral-large (translate)  →  voxtral TTS  →  mp3
 ```
@@ -178,6 +178,16 @@ PYTHONPATH=. python -m app.db.seed
 ```
 
 The seed script chunks the transcript and writes embeddings to pgvector automatically. You can also call the `/ingest` endpoint at runtime.
+
+### Rebuild the search index
+
+After pulling a version that changes chunking or retrieval, rebuild the bundled transcript index without deleting your PostgreSQL volume:
+
+```bash
+docker compose exec api python -m app.db.reindex
+```
+
+This regenerates overlapping transcript windows and embeddings for the four bundled videos. With `MISTRAL_API_KEY`, it uses `mistral-embed`; without a key, it uses deterministic development embeddings.
 
 ---
 

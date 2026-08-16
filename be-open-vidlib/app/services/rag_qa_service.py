@@ -8,27 +8,51 @@ from app.models.qa_session import QASession
 logger = logging.getLogger(__name__)
 
 def ask_video_question(video_id: str, question: str, db: Session, session_id: str = "default-session") -> dict:
-    # 1. Retrieve top-k chunks
-    contexts = search_video(video_id, question, db, top_k=4)
+    # Include a small amount of conversation history for follow-up questions.
+    qa_record = db.query(QASession).filter(
+        QASession.video_id == video_id,
+        QASession.session_id == session_id,
+    ).first()
+    previous_user_questions = [
+        message.get("content", "")
+        for message in (qa_record.messages[-6:] if qa_record else [])
+        if message.get("role") == "user"
+    ]
+    retrieval_query = " ".join(previous_user_questions[-2:] + [question]).strip()
 
-    # 2. Format context with timestamps
-    context_block = "\n".join([
-        f"[{int(c['start_time']//60):02d}:{int(c['start_time']%60):02d}] {c['text']}"
-        for c in contexts
-    ])
+    # Retrieve more candidates, then deduplicate and cap the evidence window.
+    raw_contexts = search_video(video_id, retrieval_query, db, top_k=8)
+    contexts = []
+    seen_text = set()
+    context_chars = 0
+    for context in raw_contexts:
+        normalized = " ".join(context["text"].lower().split())
+        if normalized in seen_text:
+            continue
+        block_size = len(context["text"]) + 32
+        if contexts and context_chars + block_size > 6000:
+            break
+        seen_text.add(normalized)
+        contexts.append(context)
+        context_chars += block_size
 
-    system_prompt = """You are Coumba, an intelligent and encouraging educational video research assistant for Open VidLib.
-Answer using ONLY the provided transcript context.
-Cite every claim with a timestamp in [MM:SS] format.
-Use helpful analogies when explaining complex concepts.
-If the answer is not in the context, say: "The video doesn't mention this topic."
-Be concise, clear, and factual."""
+    context_block = "\n".join(
+        f"[{int(item['start_time'] // 60):02d}:{int(item['start_time'] % 60):02d}] {item['text']}"
+        for item in contexts
+    )
 
-    user_prompt = f"""Context:
-{context_block if context_block else "No video transcript available."}
+    system_prompt = """You are Coumba, an encouraging educational tutor for Open VidLib.
+Use only the supplied transcript evidence to answer the learner's question.
+Every factual statement about the lesson must include a timestamp in [MM:SS] format from the evidence.
+Explain concepts clearly with a short analogy when useful, but label analogies as explanations rather than transcript facts.
+Do not invent details, sources, timestamps, or facts that are absent from the evidence.
+If the evidence is insufficient, say exactly: "The video does not provide enough information to answer that."""
 
-Question: {question}
-Answer:"""
+    user_prompt = f"""Transcript evidence:
+{context_block if context_block else "No relevant transcript evidence was found."}
+
+Learner question: {question}
+Answer with the strongest evidence first:"""
 
     answer_text = ""
     client = get_mistral_client()
@@ -39,47 +63,38 @@ Answer:"""
                 model=LLM_MODEL,
                 messages=[
                     {"role": "system", "content": system_prompt},
-                    {"role": "user", "content": user_prompt}
+                    {"role": "user", "content": user_prompt},
                 ],
-                temperature=0.1
+                temperature=0.05,
             )
-            answer_text = response.choices[0].message.content
-        except Exception as e:
-            logger.error(f"Mistral chat completion error: {e}")
-            answer_text = f"Coumba AI: According to the video context [{int(contexts[0]['start_time']//60):02d}:{int(contexts[0]['start_time']%60):02d}], {contexts[0]['text'][:200]}..." if contexts else "Coumba AI: I could not find information regarding this question in the lesson."
+            answer_text = response.choices[0].message.content or "The video does not provide enough information to answer that."
+        except Exception as exc:
+            logger.error("Mistral chat completion error: %s", exc)
+            answer_text = (
+                f"According to the video [{int(contexts[0]['start_time'] // 60):02d}:{int(contexts[0]['start_time'] % 60):02d}], "
+                f"{contexts[0]['text'][:250]}..."
+                if contexts else "The video does not provide enough information to answer that."
+            )
+    elif contexts:
+        top = contexts[0]
+        answer_text = f"According to the video [{int(top['start_time'] // 60):02d}:{int(top['start_time'] % 60):02d}], {top['text'][:250]}..."
     else:
-        # Grounded fallback response using top context
-        if contexts:
-            top = contexts[0]
-            mm = int(top['start_time'] // 60)
-            ss = int(top['start_time'] % 60)
-            answer_text = f"According to the video [{mm:02d}:{ss:02d}], {top['text'][:250]}..."
-        else:
-            answer_text = "The video transcript does not contain information to answer this question."
-
-    # Record conversation in QA Session
-    qa_record = db.query(QASession).filter(
-        QASession.video_id == video_id,
-        QASession.session_id == session_id
-    ).first()
+        answer_text = "The video transcript does not contain information to answer this question."
 
     if not qa_record:
-        qa_record = QASession(
-            video_id=video_id,
-            session_id=session_id,
-            messages=[]
-        )
+        qa_record = QASession(video_id=video_id, session_id=session_id, messages=[])
         db.add(qa_record)
-
-    msgs = list(qa_record.messages or [])
-    msgs.append({"role": "user", "content": question})
-    msgs.append({"role": "assistant", "content": answer_text})
-    qa_record.messages = msgs
+    messages = list(qa_record.messages or [])
+    messages.extend([
+        {"role": "user", "content": question},
+        {"role": "assistant", "content": answer_text},
+    ])
+    qa_record.messages = messages[-20:]
     db.commit()
 
     return {
         "answer": answer_text,
         "sources": contexts,
         "question": question,
-        "video_id": video_id
+        "video_id": video_id,
     }
