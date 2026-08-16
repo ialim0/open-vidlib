@@ -142,7 +142,6 @@ export const translations = {
       enterUrl: "Enter URL:",
       videoTitles: {
         gravity: "Gravity Explained to Children",
-        turing: "What is the Turing Test?",
         pyramid: "The Amazing Numbers of the Pyramid of Cheops",
         pythagoras: "What is the Pythagorean Theorem used for?",
       },
@@ -454,7 +453,6 @@ export const translations = {
       enterUrl: "Entrez l'URL :",
       videoTitles: {
         gravity: "La Gravité Expliquée aux Enfants",
-        turing: "Qu'est-ce que le Test de Turing ?",
         pyramid: "Les chiffres affolants de la pyramide de Khéops",
         pythagoras: "À quoi sert le théorème de Pythagore ?",
       },
@@ -762,7 +760,6 @@ export const translations = {
       enterUrl: "Bind URL:",
       videoTitles: {
         gravity: "Gravite: Xam-xam Bu Ndaw",
-        turing: "Lan La Test Turing?",
         pyramid: "Piramid Khéops: Ay Limu Yépp",
         pythagoras: "Théorème Pythagore: Lan La Jef?",
       },
@@ -1070,7 +1067,6 @@ export const translations = {
       enterUrl: "Winndito URL:",
       videoTitles: {
         gravity: "Gravite: Faamde e Ɓiɓɓe",
-        turing: "Hol ko Test Turing?",
         pyramid: "Piramid Khéops: Limɗe Mawɗe",
         pythagoras: "Théorème Pythagore: Ko Huutoraa?",
       },
@@ -1378,7 +1374,6 @@ export const translations = {
       enterUrl: "Ka URL sɛbɛn:",
       videoTitles: {
         gravity: "Gravite: Faamuyɛlen Den w ma",
-        turing: "Test Turing yɛ mun ye?",
         pyramid: "Piramid Khéops: Jatew Kabakow",
         pythagoras: "Théorème Pythagore: A bɛ kɛ mun na?",
       },

@@ -23,17 +23,6 @@ SEED_VIDEOS = [
         "prefix": "s"
     },
     {
-        "id": "video-1",
-        "slug": "technology-turing-test",
-        "title": "Qu'est-ce que le Test de Turing ?",
-        "category": "Technology",
-        "url": "https://youtu.be/vRZH5PwRsUE?si=KWm2E2PFcG1F5GtW",
-        "cover_image": "/technology/img-1.png",
-        "description": "Découvrez l'histoire de l'intelligence artificielle, Alan Turing, et comment évaluer la pensée des machines.",
-        "duration_seconds": 310,
-        "prefix": "t"
-    },
-    {
         "id": "video-2",
         "slug": "engineering-pyramid-of-cheops",
         "title": "Les chiffres affolants de la pyramide de Khéops",

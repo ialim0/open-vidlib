@@ -12,7 +12,6 @@ logger = logging.getLogger(__name__)
 
 VIDEO_PREFIXES = {
     "video-0": "s",
-    "video-1": "t",
     "video-2": "e",
     "video-3": "m",
 }

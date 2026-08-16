@@ -40,7 +40,6 @@ export function LibraryClient({ initialResources }: LibraryClientProps) {
         // Map French titles to translation keys
         const titleMap: Record<string, string> = {
             "La Gravité Expliquée aux Enfants": t.library.videoTitles.gravity,
-            "Qu'est-ce que le Test de Turing ?": t.library.videoTitles.turing,
             "Les chiffres affolants de la pyramide de Khéops": t.library.videoTitles.pyramid,
             "À quoi sert le théorème de Pythagore ?": t.library.videoTitles.pythagoras,
         }

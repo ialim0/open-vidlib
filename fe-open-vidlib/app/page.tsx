@@ -51,7 +51,6 @@ export default function HomePage() {
   const getVideoTitle = (originalTitle: string) => {
     const titleMap: Record<string, string> = {
       "La Gravité Expliquée aux Enfants": t.library?.videoTitles?.gravity || originalTitle,
-      "Qu'est-ce que le Test de Turing ?": t.library?.videoTitles?.turing || originalTitle,
       "Les chiffres affolants de la pyramide de Khéops": t.library?.videoTitles?.pyramid || originalTitle,
       "À quoi sert le théorème de Pythagore ?": t.library?.videoTitles?.pythagoras || originalTitle,
     }
