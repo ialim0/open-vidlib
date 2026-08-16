@@ -39,8 +39,8 @@ The app is fully usable without a Mistral key — every AI feature degrades grac
 ## Architecture
 
 ```
-fe-gandalab/          Next.js 14 frontend
-be-gandalab/          FastAPI backend
+fe-open-vidlib/          Next.js 14 frontend
+be-open-vidlib/          FastAPI backend
   app/
     api/v1/           REST endpoints
     core/             Settings, Mistral client singleton
@@ -170,10 +170,10 @@ To add a video to the library you need two things:
 1. **A YouTube URL** for the lesson.
 2. **A transcript file** — a JSON array of `{ word, start, end }` objects (from Whisper or any ASR tool).
 
-Place the transcript in `be-gandalab/app/db/seed_data/` following the naming convention in that folder, then run the seed:
+Place the transcript in `be-open-vidlib/app/db/seed_data/` following the naming convention in that folder, then run the seed:
 
 ```bash
-cd be-gandalab
+cd be-open-vidlib
 PYTHONPATH=. python -m app.db.seed
 ```
 

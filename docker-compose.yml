@@ -22,7 +22,7 @@ services:
 
   api:
     build:
-      context: ./be-gandalab
+      context: ./be-open-vidlib
     restart: unless-stopped
     depends_on:
       db:
@@ -37,11 +37,11 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - ./be-gandalab/static:/app/static  # persists generated dubbing audio
+      - ./be-open-vidlib/static:/app/static  # persists generated dubbing audio
 
   web:
     build:
-      context: ./fe-gandalab
+      context: ./fe-open-vidlib
     restart: unless-stopped
     depends_on:
       - api

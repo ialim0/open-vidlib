@@ -1,4 +1,4 @@
-# be-gandalab — GandaLab API
+# be-open-vidlib — GandaLab API
 
 FastAPI backend for the GandaLab video platform.  
 Handles video metadata, transcripts, flashcards, and all Mistral AI features.
