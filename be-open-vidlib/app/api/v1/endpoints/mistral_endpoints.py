@@ -1,4 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException, status
+from pathlib import Path
+from threading import Lock
 from sqlalchemy.orm import Session
 from app.core.database import get_db
 from app.models.video import Video
@@ -17,6 +19,7 @@ from app.services.dubbing_service import create_dubbed_track, SUPPORTED_DUB_LANG
 from app.services.agent_router import route_user_intent
 
 router = APIRouter()
+_dubbing_lock = Lock()
 
 @router.post("/{video_id}/ingest", response_model=IngestResponse, summary="Ingest & Embed Captions with mistral-embed")
 def ingest_video_captions(
@@ -101,7 +104,11 @@ def dub_video(
     if payload.language.lower() not in SUPPORTED_DUB_LANGUAGES:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Dubbing is currently available only in English and French. Other languages are coming soon.")
 
-    result = create_dubbed_track(video_id, payload.language, payload.voice_gender, db)
+    try:
+        with _dubbing_lock:
+            result = create_dubbed_track(video_id, payload.language, payload.voice_gender, db)
+    except RuntimeError as exc:
+        raise HTTPException(status_code=status.HTTP_503_SERVICE_UNAVAILABLE, detail=str(exc)) from exc
     return DubbedTrackResponse(**result)
 
 @router.get("/{video_id}/dub/{lang}", response_model=DubbedTrackResponse, summary="Get Dubbed Audio Track")
@@ -115,6 +122,11 @@ def get_dubbed_track(
         AudioDub.video_id == video_id,
         AudioDub.language == lang
     ).order_by(AudioDub.start_time.asc()).all()
+    dubs = [
+        dub for dub in dubs
+        if Path(dub.audio_path.lstrip("/" )).exists()
+        and Path(dub.audio_path.lstrip("/" )).stat().st_size > 1024
+    ]
 
     segments = [
         {

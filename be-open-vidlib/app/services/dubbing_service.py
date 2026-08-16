@@ -33,7 +33,7 @@ def create_dubbed_track(video_id: str, target_lang: str, voice_gender: str, db: 
             AudioDub.segment_id == seg.id,
             AudioDub.language == target_lang
         ).first()
-        if existing_dub and Path(existing_dub.audio_path.lstrip(chr(47))).exists():
+        if existing_dub and Path(existing_dub.audio_path.lstrip(chr(47))).exists() and Path(existing_dub.audio_path.lstrip(chr(47))).stat().st_size > 1024:
             dubbed_segments.append(existing_dub)
             continue
 
@@ -43,7 +43,9 @@ def create_dubbed_track(video_id: str, target_lang: str, voice_gender: str, db: 
 
         # 2. Generate speech
         rel_path = f"static/dubs/{video_id}/{target_lang}/seg_{seg.id}.mp3"
-        generate_speech(translated, voice_id, rel_path)
+        generated_path = generate_speech(translated, voice_id, rel_path)
+        if not generated_path:
+            raise RuntimeError("Audio generation failed; no dubbed audio was cached")
 
         # 3. Store / update AudioDub metadata
         existing_dub = db.query(AudioDub).filter(

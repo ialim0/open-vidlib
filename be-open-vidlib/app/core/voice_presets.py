@@ -1,60 +1,23 @@
 from typing import Dict
 
+# Preset voice IDs returned by the configured Mistral account.
+# Mistral requires real preset/custom voice IDs; language names such as
+# "fr_female" are not valid API voice IDs.
 VOICE_PRESETS: Dict[str, Dict[str, str]] = {
     "en": {
-        "female": "neutral_female",
-        "male": "neutral_male",
-        "casual_f": "casual_female",
-        "casual_m": "casual_male",
-        "cheerful": "cheerful_female"
+        "female": "c69964a6-ab8b-4f8a-9465-ec0925096ec8",  # Paul - Neutral
+        "male": "c69964a6-ab8b-4f8a-9465-ec0925096ec8",
     },
     "fr": {
-        "female": "fr_female",
-        "male": "fr_male"
+        "female": "5a271406-039d-46fe-835b-fbbb00eaf08d",  # Marie - Neutral
+        "male": "5a271406-039d-46fe-835b-fbbb00eaf08d",
     },
-    "es": {
-        "female": "es_female",
-        "male": "es_male"
-    },
-    "de": {
-        "female": "de_female",
-        "male": "de_male"
-    },
-    "it": {
-        "female": "it_female",
-        "male": "it_male"
-    },
-    "pt": {
-        "female": "pt_female",
-        "male": "pt_male"
-    },
-    "nl": {
-        "female": "nl_female",
-        "male": "nl_male"
-    },
-    "hi": {
-        "female": "hi_female",
-        "male": "hi_male"
-    },
-    "ar": {
-        "female": "ar_female",
-        "male": "ar_male"
-    },
-    "wo": {
-        "female": "neutral_female",
-        "male": "neutral_male"
-    },
-    "ff": {
-        "female": "neutral_female",
-        "male": "neutral_male"
-    },
-    "bm": {
-        "female": "neutral_female",
-        "male": "neutral_male"
-    }
 }
+
 
 def get_voice_id(lang: str, gender: str = "female") -> str:
     lang_lower = lang.lower() if lang else "en"
     gender_lower = gender.lower() if gender else "female"
-    return VOICE_PRESETS.get(lang_lower, {}).get(gender_lower, "neutral_female")
+    return VOICE_PRESETS.get(lang_lower, VOICE_PRESETS["en"]).get(
+        gender_lower, VOICE_PRESETS["en"]["female"]
+    )
