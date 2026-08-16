@@ -19,6 +19,8 @@ export default function HomePage() {
   const [searchQuery, setSearchQuery] = useState("")
   const [activeCategory, setActiveCategory] = useState<string>("All")
   const [loading, setLoading] = useState(true)
+  const [sourceUrl, setSourceUrl] = useState("")
+  const [showComingSoon, setShowComingSoon] = useState(false)
 
   const categories = ["All", "Science", "Technology", "Engineering", "Mathematics"]
 
@@ -149,6 +151,63 @@ export default function HomePage() {
                 </Badge>
               ))}
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Bring Your Own Lesson */}
+      <section className="border-b bg-primary/[0.03] py-10">
+        <div className="container mx-auto max-w-4xl px-4">
+          <div className="rounded-3xl border border-primary/20 bg-card p-6 shadow-sm md:p-8">
+            <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+              <div className="max-w-xl">
+                <div className="mb-2 flex items-center gap-2 text-sm font-semibold text-primary">
+                  <Video className="h-4 w-4" />
+                  Bring your own lesson
+                </div>
+                <h2 className="text-2xl font-bold tracking-tight">Paste a YouTube link or upload your own video</h2>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                  Turn any lesson into a searchable, multilingual learning experience. Community video imports and uploads are coming soon.
+                </p>
+              </div>
+              <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
+                <form
+                  className="flex gap-2"
+                  onSubmit={(event) => {
+                    event.preventDefault()
+                    setShowComingSoon(true)
+                  }}
+                >
+                  <Input
+                    value={sourceUrl}
+                    onChange={(event) => setSourceUrl(event.target.value)}
+                    placeholder="https://youtube.com/..."
+                    aria-label="YouTube video link"
+                    className="h-10 w-full sm:w-56"
+                  />
+                  <Button type="submit" className="h-10 shrink-0">
+                    Paste link
+                  </Button>
+                </form>
+                <Button type="button" variant="outline" className="h-10" onClick={() => setShowComingSoon(true)}>
+                  <Video className="mr-2 h-4 w-4" />
+                  Upload video
+                </Button>
+              </div>
+            </div>
+            {showComingSoon && (
+              <div className="mt-5 flex flex-col gap-2 rounded-xl border border-primary/20 bg-primary/5 px-4 py-3 text-sm sm:flex-row sm:items-center sm:justify-between">
+                <span className="text-muted-foreground">Video imports and uploads are coming soon.</span>
+                <a
+                  href="https://github.com/ialim0/open-vidlib"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-semibold text-primary hover:underline"
+                >
+                  Contribute on GitHub →
+                </a>
+              </div>
+            )}
           </div>
         </div>
       </section>

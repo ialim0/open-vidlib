@@ -34,6 +34,12 @@ The goal is to make high-quality STEM content navigable and accessible in West A
 
 The app is fully usable without a Mistral key — every AI feature degrades gracefully to keyword heuristics or cached seed data.
 
+## Vision and impact
+
+Open VidLib aims to make the language of a lesson a choice, not a barrier. Imagine watching any educational video, switching its spoken language in real time, and seeing captions remain synchronized with the translated audio. Imagine searching across every part of a long lesson for a formula, example, or explanation, then jumping directly to that moment with playback and transcript context.
+
+That future can make high-quality STEM education easier to access for learners who are more comfortable in French, Wolof, Pulaar, Bambara, and other community-supported languages. The current project is an early foundation: English and French dubbing are available, while user-submitted YouTube links, uploads, real-time switching, and additional languages are part of the open-source roadmap.
+
 ---
 
 ## Architecture
@@ -222,7 +228,7 @@ After pulling a version that changes chunking or retrieval, rebuild the bundled 
 docker compose exec api python -m app.db.reindex
 ```
 
-This regenerates overlapping transcript windows and embeddings for the four bundled videos. With `MISTRAL_API_KEY`, it uses `mistral-embed`; without a key, it uses deterministic development embeddings.
+This regenerates overlapping transcript windows and embeddings for the three bundled videos. With `MISTRAL_API_KEY`, it uses `mistral-embed`; without a key, it uses deterministic development embeddings.
 
 ---
 

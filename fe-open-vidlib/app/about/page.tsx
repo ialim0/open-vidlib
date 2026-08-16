@@ -37,6 +37,25 @@ export default function AboutPage() {
           </p>
         </section>
 
+        <section className="mt-16 rounded-3xl border border-primary/20 bg-primary/5 p-8 md:p-10">
+          <h2 className="text-3xl font-bold">Why this matters</h2>
+          <p className="mt-4 max-w-3xl leading-relaxed text-muted-foreground">
+            Imagine watching any educational video in the language that helps you learn best. Open VidLib is moving toward real-time language switching, translated voice playback, and captions that stay synchronized with the lesson. Instead of scrubbing through a long video, learners will be able to search any concept, jump directly to the relevant moment, and ask questions grounded in what was said.
+          </p>
+          <div className="mt-6 grid gap-4 md:grid-cols-3">
+            {[
+              ["Learn in your language", "Switch between English, French, and future community-supported languages without losing the lesson context."],
+              ["Search every moment", "Find a formula, explanation, or example inside the video and play it immediately."],
+              ["Share knowledge", "Help expand the library by contributing videos, transcripts, translations, and improvements."],
+            ].map(([title, description]) => (
+              <article key={title} className="rounded-2xl border bg-card p-5">
+                <h3 className="font-semibold">{title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{description}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
         <section className="mt-16">
           <div className="mb-8 flex items-center gap-3">
             <Database className="h-6 w-6 text-primary" />
