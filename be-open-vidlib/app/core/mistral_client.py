@@ -24,7 +24,10 @@ def get_mistral_client() -> Optional[Any]:
         return None
 
     try:
-        from mistralai import Mistral
+        try:
+            from mistralai import Mistral
+        except ImportError:
+            from mistralai.client import Mistral
         _client = Mistral(api_key=settings.MISTRAL_API_KEY)
         logger.info("Mistral client initialised (model=%s)", settings.MISTRAL_LLM_MODEL)
     except Exception as exc:
