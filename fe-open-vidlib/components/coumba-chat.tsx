@@ -58,6 +58,7 @@ export function CoumbaChat({
     const [expandedSources, setExpandedSources] = useState<Record<string, boolean>>({})
     const [sessionId] = useState(() => `session-${Math.random().toString(36).substring(2, 9)}`)
     const scrollRef = useRef<HTMLDivElement>(null)
+    const inputRef = useRef<HTMLInputElement>(null)
 
     useEffect(() => {
         if (messages.length > 0 && scrollRef.current) {
@@ -112,6 +113,11 @@ export function CoumbaChat({
         }
 
         return parts.length > 0 ? parts : text
+    }
+
+    const selectPrompt = (prompt: string) => {
+        setInputValue(prompt)
+        inputRef.current?.focus()
     }
 
     const handleSendMessage = async (text: string = inputValue) => {
@@ -443,14 +449,14 @@ export function CoumbaChat({
             {!isQuizActive && (
                 <div className="px-3 pt-2 pb-1 border-t bg-card/50 flex items-center gap-1.5 overflow-x-auto text-xs">
                     <button
-                        onClick={() => handleSendMessage("Where in the video is this concept explained?")}
+                        onClick={() => selectPrompt("Where in the video is this concept explained?")}
                         className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-muted/60 hover:bg-muted text-muted-foreground hover:text-foreground text-[11px] font-medium transition-colors shrink-0"
                     >
                         <Search className="h-3 w-3" />
                         Search Moments
                     </button>
                     <button
-                        onClick={() => handleSendMessage("Explain the key intuition and analogy of this lesson")}
+                        onClick={() => selectPrompt("Explain the key intuition and analogy of this lesson")}
                         className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-muted/60 hover:bg-muted text-muted-foreground hover:text-foreground text-[11px] font-medium transition-colors shrink-0"
                     >
                         <HelpCircle className="h-3 w-3" />
@@ -470,6 +476,7 @@ export function CoumbaChat({
             <div className="p-3 border-t bg-card space-y-2 shrink-0">
                 <div className="flex gap-2">
                     <Input
+                        ref={inputRef}
                         placeholder="Ask Coumba, search timestamps, or request dubbing..."
                         value={inputValue}
                         onChange={(e) => setInputValue(e.target.value)}
