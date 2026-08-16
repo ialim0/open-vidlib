@@ -17,21 +17,22 @@ app/
     voice_presets.py    Language → Voxtral voice ID mapping
   db/
     init_db.py          Table creation + seed trigger
+    reindex.py          Rebuild bundled transcript chunks and embeddings
     seed.py             Idempotent seed: videos, transcripts, embeddings, flashcards
     seed_data/          JSON transcript files and flashcard banks
   models/               SQLAlchemy ORM models
   schemas/              Pydantic v2 I/O schemas (one file per feature area)
   services/
     ingest_service.py   Caption chunking and mistral-embed batch embedding
-    search_service.py   pgvector cosine similarity search with Python fallback
-    rag_qa_service.py   Grounded Q&A via mistral-large-latest
+    search_service.py   Hybrid pgvector + lexical retrieval with RRF and fallback
+    rag_qa_service.py   Grounded Q&A with evidence selection and citations
     translation_service.py  Speech-optimised translation
     tts_service.py      Voxtral TTS audio generation
     dubbing_service.py  Orchestrates translation + TTS → AudioDub records
     agent_router.py     Mistral tool calling — routes intent to the right service
     video_service.py    Video CRUD helpers
   main.py               App factory (CORS, static files, lifespan)
-tests/                  pytest suite (17 tests, no external services required)
+tests/                  pytest suite
 ```
 
 ---
@@ -64,34 +65,35 @@ The easiest way is `docker compose up db` from the project root.
 
 ---
 
-## How the Mistral pipeline works
+## Search and AI pipeline
 
 ### 1 — Ingestion (`POST /api/v1/videos/{id}/ingest`)
 
 ```
-captions list  →  chunk by ~500 chars preserving timestamps
+captions list  →  clean text and build overlapping sentence-aware windows (420 target / 650 max chars)
                →  batch embed with mistral-embed (1024-dim)
-               →  upsert into video_segments table (pgvector column)
+               →  replace the video/language index in video_segments
 ```
 
-The chunker tries to end chunks at sentence boundaries before the 500-char limit.
+The chunker targets 420 characters, never exceeds 650 characters, preserves timestamps, and overlaps up to two captions so concepts spanning a boundary remain retrievable.
 
 ### 2 — Semantic search (`POST /api/v1/videos/{id}/search`)
 
 ```
-query string  →  embed with mistral-embed
-              →  pgvector: SELECT ... ORDER BY embedding <=> $query_vec LIMIT k
-              →  return [{text, start_time, end_time, similarity}, ...]
+query string  →  embed with mistral-embed (when configured)
+              →  retrieve vector candidates from pgvector and lexical candidates with IDF/TF scoring
+              →  reciprocal-rank fusion → near-duplicate reduction → timestamped results
 ```
 
-Falls back to in-memory cosine math when running against SQLite (tests).
+Falls back to deterministic embeddings and in-memory cosine scoring when Mistral or pgvector is unavailable. Lexical matching remains available for exact terms.
 
 ### 3 — RAG Q&A (`POST /api/v1/videos/{id}/ask`)
 
 ```
-question  →  top-4 chunks from semantic search
-          →  system prompt: answer using only the context, cite [MM:SS]
-          →  mistral-large-latest
+question + recent question context  →  top-8 fused chunks
+          →  remove duplicate evidence and cap the context window
+          →  strict grounded prompt: answer only from transcript and cite [MM:SS]
+          →  mistral-large-latest (low temperature)
           →  {answer, sources, video_id}
 ```
 
@@ -116,6 +118,17 @@ Falls back to keyword heuristics when no API key is present.
 
 ---
 
+## Rebuilding the bundled search index
+
+Run this after changing chunking, embedding, or retrieval behavior:
+
+```bash
+# from the repository root
+docker compose exec api python -m app.db.reindex
+```
+
+The command replaces the indexed segments for the four bundled videos while preserving video metadata and the database volume. With `MISTRAL_API_KEY`, it creates real `mistral-embed` vectors; without a key it creates deterministic development vectors, so lexical retrieval still works but semantic quality is limited.
+
 ## Database models
 
 | Table | Purpose |
@@ -136,9 +149,7 @@ Falls back to keyword heuristics when no API key is present.
 PYTHONPATH=. pytest -v tests/
 ```
 
-All 17 tests run against an in-memory SQLite database — no Mistral key or
-PostgreSQL instance required. The embedding and TTS services use deterministic
-fallbacks during testing.
+The test suite is designed to run against an in-memory SQLite database without a Mistral key or PostgreSQL instance. Embedding and TTS services provide deterministic fallbacks for local development and tests.
 
 ---
 

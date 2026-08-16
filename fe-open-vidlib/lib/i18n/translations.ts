@@ -31,9 +31,6 @@ export const translations = {
       statsAiTools: "AI Powered Tools",
       statsAccessible: "Accessible",
       footerRights: "All rights reserved.",
-      privacy: "Privacy",
-      terms: "Terms",
-      contact: "Contact",
     },
     features: {
       literacy: {
@@ -344,9 +341,6 @@ export const translations = {
       statsAiTools: "Outils IA",
       statsAccessible: "Accessible",
       footerRights: "Tous droits réservés.",
-      privacy: "Confidentialité",
-      terms: "Conditions",
-      contact: "Contact",
     },
     features: {
       literacy: {
@@ -659,9 +653,6 @@ export const translations = {
       statsAiTools: "Jumtukaay IA",
       statsAccessible: "Jëfandikoo",
       footerRights: "Yépp dana jël.",
-      privacy: "Sutura",
-      terms: "Sarax",
-      contact: "Jokkoo",
     },
     features: {
       literacy: {
@@ -970,9 +961,6 @@ export const translations = {
       statsAiTools: "Kuutorɗe IA",
       statsAccessible: "Heɓotooɗum",
       footerRights: "Jamirooje fof ngoongɗinaa.",
-      privacy: "Kaaƴal",
-      terms: "Sarɗe",
-      contact: "Jokkondiral",
     },
     features: {
       literacy: {
@@ -1281,9 +1269,6 @@ export const translations = {
       statsAiTools: "IA Minɛnw",
       statsAccessible: "Sɔrɔta",
       footerRights: "Fof ko jibinaa.",
-      privacy: "Suturo",
-      terms: "Sarɗe",
-      contact: "Jokkondiro",
     },
     features: {
       literacy: {

@@ -39,7 +39,7 @@ The app is fully usable without a Mistral key — every AI feature degrades grac
 ## Architecture
 
 ```
-fe-open-vidlib/          Next.js 14 frontend
+fe-open-vidlib/          Next.js 16 frontend
 be-open-vidlib/          FastAPI backend
   app/
     api/v1/           REST endpoints
@@ -52,15 +52,50 @@ be-open-vidlib/          FastAPI backend
 docker-compose.yml    PostgreSQL (pgvector) + API + web
 ```
 
-### Mistral pipeline
+The browser talks to the web app and REST API. Only the API talks to PostgreSQL,
+pgvector, and Mistral. Generated dubbing files are stored in the API's
+`static/dubs` directory and persisted through the Docker bind mount.
+
+```mermaid
+flowchart LR
+    Browser[Browser]
+    Web[Next.js 16 web app<br/>localhost:3000]
+    API[FastAPI API\nlocalhost:8000]
+    DB[(PostgreSQL 16<br/>pgvector)]
+    Files[(static/dubs<br/>MP3 cache)]
+    Embed[Mistral Embed]
+    Chat[Mistral Chat]
+    TTS[Voxtral TTS]
+
+    Browser --> Web
+    Browser --> API
+    API --> DB
+    API --> Files
+    API --> Embed
+    API --> Chat
+    API --> TTS
+```
+
+### Retrieval and AI pipeline
 
 ```
-captions (JSON)  →  overlapping sentence windows  →  mistral-embed (1024-dim)  →  pgvector
-                                                                         ↓
-user query  →  vector + lexical retrieval  →  rank fusion + deduplication  →  evidence window  →  mistral-large  →  cited answer
-                                                                         ↓
-                                                    mistral-large (translate)  →  voxtral TTS  →  mp3
+captions (JSON)  →  cleaned overlapping sentence windows  →  batch embeddings  →  pgvector
+                                                                                   ↓
+question  →  vector retrieval + lexical retrieval  →  reciprocal-rank fusion  →  deduplicate  →  evidence window  →  Mistral chat  →  cited answer
+                                                                                   ↓
+                                                               Mistral translation  →  Voxtral TTS  →  cached MP3 segments
 ```
+
+Search combines semantic similarity with lexical matching. This keeps exact
+technical terms searchable while still finding paraphrases. RAG sends only
+the highest-ranked, non-redundant transcript evidence to the model and asks it
+to cite timestamps; it must say when the transcript does not contain enough
+evidence.
+
+The current dubbing UI exposes English and French. A requested French track is
+translated, synthesized, and cached segment-by-segment; later requests reuse
+successful files. Other languages are displayed as coming soon until a voice
+preset is implemented.
 
 ---
 
@@ -158,8 +193,10 @@ docker compose down -v
 
 ### Troubleshooting
 
-- If Docker reports that `.next/standalone` is missing, pull the latest code and rebuild: `git pull && docker compose build --no-cache web && docker compose up`.
+- If Docker reports that `.next/standalone` is missing, rebuild the web image: `docker compose build --no-cache web && docker compose up`.
 - If a port is already in use, stop the conflicting service or change `3000`, `8000`, or `5432` in `docker-compose.yml`.
+- If `vector does not exist`, run `docker compose down -v` once and start again; the database image must run `CREATE EXTENSION vector` during initialization.
+- After changing chunking or retrieval code, rebuild the index with `docker compose exec api python -m app.db.reindex`.
 - To inspect one service, run `docker compose logs -f web`, `docker compose logs -f api`, or `docker compose logs -f db`.
 - If the API starts before the database is ready, wait a few seconds and check `docker compose ps`; the Compose health check will allow the API to start when PostgreSQL is ready.
 

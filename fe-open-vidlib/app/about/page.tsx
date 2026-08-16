@@ -1,11 +1,11 @@
 import Link from "next/link"
-import { ArrowLeft, Code2, Database, Globe2, Languages, Map, MessageCircle, Search, Sparkles } from "lucide-react"
+import { ArrowLeft, Database, Globe, Search, Sparkles } from "lucide-react"
 
 const technologies = [
-  { icon: Code2, name: "Next.js + TypeScript", description: "A fast, accessible frontend for browsing lessons and interacting with transcripts." },
+  { icon: Database, name: "Next.js + TypeScript", description: "A fast, accessible frontend for browsing lessons and interacting with transcripts." },
   { icon: Database, name: "FastAPI + PostgreSQL", description: "A maintainable API and relational data layer for videos, transcripts, quizzes, and learning sessions." },
   { icon: Search, name: "pgvector + Mistral AI", description: "Semantic transcript search, grounded answers, translation, and multilingual voice generation." },
-  { icon: Globe2, name: "Open educational content", description: "A foundation for STEM learning in English, French, Wolof, Pulaar, Bambara, and more languages." },
+  { icon: Globe, name: "Open educational content", description: "A foundation for STEM learning in English, French, Wolof, Pulaar, Bambara, and more languages." },
 ]
 
 const roadmap = [
@@ -30,7 +30,7 @@ export default function AboutPage() {
           </div>
           <h1 className="text-4xl font-extrabold tracking-tight md:text-6xl">About the project</h1>
           <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
-            Open VidLib is the open-source evolution of Open VidLib, an educational video platform created to make STEM lessons easier to understand, search, and discuss. It was born at the AIMS Scientific Innovation Hackathon in Senegal, where the project won first prize in the EdTech category.
+            Open VidLib is an open-source educational video platform created to make STEM lessons easier to understand, search, and discuss. It was born at the AIMS Scientific Innovation Hackathon in Senegal, where the project won first prize in the EdTech category.
           </p>
           <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
             Learners can watch curated lessons, jump through word-level transcripts, search for concepts, ask Coumba questions grounded in a video, and practice with multilingual flashcards.
@@ -39,7 +39,7 @@ export default function AboutPage() {
 
         <section className="mt-16">
           <div className="mb-8 flex items-center gap-3">
-            <Code2 className="h-6 w-6 text-primary" />
+            <Database className="h-6 w-6 text-primary" />
             <h2 className="text-3xl font-bold">Technology</h2>
           </div>
           <div className="grid gap-5 md:grid-cols-2">
@@ -55,7 +55,7 @@ export default function AboutPage() {
 
         <section className="mt-16 rounded-3xl border bg-card p-8 md:p-10">
           <div className="flex items-center gap-3">
-            <Map className="h-6 w-6 text-primary" />
+            <Globe className="h-6 w-6 text-primary" />
             <h2 className="text-3xl font-bold">Open-source roadmap</h2>
           </div>
           <p className="mt-4 max-w-2xl leading-relaxed text-muted-foreground">
@@ -64,7 +64,7 @@ export default function AboutPage() {
           <ul className="mt-6 grid gap-3 md:grid-cols-2">
             {roadmap.map((item) => (
               <li key={item} className="flex gap-3 text-sm leading-relaxed">
-                <Languages className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                <Globe className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
                 <span>{item}</span>
               </li>
             ))}
@@ -77,7 +77,7 @@ export default function AboutPage() {
             <p className="mt-1 text-sm text-muted-foreground">Open an issue, propose a feature, or contribute code to Open VidLib.</p>
           </div>
           <a href="https://github.com/ialim0/open-vidlib" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:opacity-90">
-            <MessageCircle className="h-4 w-4" /> View on GitHub
+            <Globe className="h-4 w-4" /> View on GitHub
           </a>
         </section>
       </div>
