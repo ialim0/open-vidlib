@@ -38,7 +38,7 @@ The app is fully usable without a Mistral key — every AI feature degrades grac
 
 Watch the Open VidLib walkthrough on Loom:
 
-[Open the demo on Loom](https://www.loom.com/share/9d702ff0ab37478bb8af5f467e8b43f3)
+[Open the demo on Loom](https://www.loom.com/share/1fc38092885842f2a947973e42703821)
 
 The demo shows the core learner flow: browsing the library, searching inside a video, jumping from grounded AI answers to playback, switching language, following synchronized captions, and taking notes.
 

@@ -108,7 +108,7 @@ export default function HomePage() {
           <div className="mx-auto mb-10 max-w-4xl overflow-hidden rounded-2xl border bg-card shadow-sm">
             <div className="aspect-video">
               <iframe
-                src="https://www.loom.com/embed/9d702ff0ab37478bb8af5f467e8b43f3"
+                src="https://www.loom.com/embed/1fc38092885842f2a947973e42703821"
                 title="Open VidLib product demo"
                 className="h-full w-full"
                 allow="autoplay; fullscreen; picture-in-picture"
