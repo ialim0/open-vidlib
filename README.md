@@ -34,6 +34,14 @@ The goal is to make high-quality STEM content navigable and accessible in West A
 
 The app is fully usable without a Mistral key — every AI feature degrades gracefully to keyword heuristics or cached seed data.
 
+## Demo
+
+Watch the Open VidLib walkthrough on Loom:
+
+[Open the demo on Loom](https://www.loom.com/share/9d702ff0ab37478bb8af5f467e8b43f3)
+
+The demo shows the core learner flow: browsing the library, searching inside a video, jumping from grounded AI answers to playback, switching language, following synchronized captions, and taking notes.
+
 ## Product tour
 
 These screenshots show the current learner experience:
