@@ -135,7 +135,7 @@ def get_dubbed_track(
             "audio_url": d.audio_path,
             "start": d.start_time,
             "end": d.end_time,
-            "translated_text": translated_captions.get(d.segment_id) or (getattr(d.segment, "translated_text", None) if d.segment else None)
+            "translated_text": translated_captions.get(d.segment_id)
         }
         for d in dubs
     ]
