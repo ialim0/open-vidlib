@@ -1,0 +1,54 @@
+{
+    "flashcards": [
+        {
+            "question": "Ɗo Pythagoras jibinii?",
+            "options": [
+                "Athens",
+                "Samos",
+                "Sparta"
+            ],
+            "correctOption": 1,
+            "source": "[00:36] - 'e Samos, worgo...'"
+        },
+        {
+            "question": "Hitaande woɗnde Pythagoras jibinii?",
+            "options": [
+                "480 ɗoo JC",
+                "580 ɗoo JC",
+                "680 ɗoo JC"
+            ],
+            "correctOption": 1,
+            "source": "[00:34] - 'e 580 ɗoo Isa Almasiihu'"
+        },
+        {
+            "question": "Mbele théorème Pythagore anndiraama hade Pythagoras?",
+            "options": [
+                "Alaa, o waɗi mo",
+                "Eey, Misiraawɓe anndiraama",
+                "En anndaaka"
+            ],
+            "correctOption": 1,
+            "source": "[00:55] - 'Misiraawɓe anndiraama'"
+        },
+        {
+            "question": "Hol ɗo goɗɗo Pythagoras janngii e limaruuji?",
+            "options": [
+                "Kuusal",
+                "Duuɓi koye",
+                "Mahndaade"
+            ],
+            "correctOption": 1,
+            "source": "[00:44] - 'duuɓi koye moƴƴo e ganndowo'"
+        },
+        {
+            "question": "Ɗo worgo Samos woni?",
+            "options": [
+                "E geɗel Méditerranée",
+                "E geɗel Égée",
+                "E geɗel Baleeje"
+            ],
+            "correctOption": 1,
+            "source": "[00:38] - 'geɗel Égée e worgo-leydi...'"
+        }
+    ]
+}

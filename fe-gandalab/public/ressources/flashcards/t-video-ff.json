@@ -1,0 +1,54 @@
+{
+    "flashcards": [
+        {
+            "question": "Hol ko waɗtii Test Turing?",
+            "options": [
+                "Albert Einstein",
+                "Alan Turing",
+                "Isaac Newton"
+            ],
+            "correctOption": 1,
+            "source": "[00:08] - 'Alan Turing, limaruujo jotoowo...'"
+        },
+        {
+            "question": "Hitaande woɗnde winndaa 'Computing Machinery and Intelligence'?",
+            "options": [
+                "1940",
+                "1950",
+                "1960"
+            ],
+            "correctOption": 1,
+            "source": "[00:07] - 'Hitaande 1950...'"
+        },
+        {
+            "question": "Hol ko naamnal mawnde Turing njahri?",
+            "options": [
+                "Mbele masiŋaaji mbaawi ndiya?",
+                "Mbele masiŋaaji mbaawi haɗde?",
+                "Mbele masiŋaaji mbaawi miijde?"
+            ],
+            "correctOption": 1,
+            "source": "[00:17] - 'naamnal mawnde: mbele masiŋaaji mbaawi haɗde'"
+        },
+        {
+            "question": "Hol ko Test Turing waɗi?",
+            "options": [
+                "Ɓeydude jafe limaruuji mawnɗe",
+                "Neɗɗo ndappuɗo e neɗɗo e masiŋ",
+                "Hirde échecs e ordinateur"
+            ],
+            "correctOption": 1,
+            "source": "[00:27] - 'Haɗ neɗɗo ndappuɗo...'"
+        },
+        {
+            "question": "Mbele Test Turing hollira no masiŋ hokki miijo?",
+            "options": [
+                "Eey, goonga",
+                "Alaa, hollira no mbaawi seedude jaabawol neɗɗo",
+                "Hollira yaawgal masiŋ"
+            ],
+            "correctOption": 1,
+            "source": "[00:41] - 'Hollataa no masiŋ... hokki miijo...'"
+        }
+    ]
+}

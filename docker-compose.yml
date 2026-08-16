@@ -1,0 +1,54 @@
+# GandaLab — three-service stack
+# Requires Docker ≥ 24 with Compose v2.
+# Copy .env.example → .env and set MISTRAL_API_KEY before running.
+
+services:
+  db:
+    image: pgvector/pgvector:pg16
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB:       ${POSTGRES_DB:-gandalab}
+      POSTGRES_USER:     ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changeme}
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres} -d ${POSTGRES_DB:-gandalab}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  api:
+    build:
+      context: ./be-gandalab
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL:          postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-changeme}@db:5432/${POSTGRES_DB:-gandalab}
+      MISTRAL_API_KEY:       ${MISTRAL_API_KEY:-}
+      MISTRAL_EMBED_MODEL:   ${MISTRAL_EMBED_MODEL:-mistral-embed}
+      MISTRAL_LLM_MODEL:     ${MISTRAL_LLM_MODEL:-mistral-large-latest}
+      MISTRAL_TTS_MODEL:     ${MISTRAL_TTS_MODEL:-voxtral-mini-tts-2603}
+      CORS_ORIGINS:          ${CORS_ORIGINS:-http://localhost:3000}
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./be-gandalab/static:/app/static  # persists generated dubbing audio
+
+  web:
+    build:
+      context: ./fe-gandalab
+    restart: unless-stopped
+    depends_on:
+      - api
+    environment:
+      NEXT_PUBLIC_API_URL: http://api:8000/api/v1
+    ports:
+      - "3000:3000"
+
+volumes:
+  db_data:

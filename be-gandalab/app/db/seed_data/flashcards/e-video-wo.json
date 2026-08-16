@@ -1,0 +1,54 @@
+{
+    "flashcards": [
+        {
+            "question": "Ñaata blocs calcaire la Pyramide bu Mag defar?",
+            "options": [
+                "Benn million",
+                "Ñaar million yi gën",
+                "Ñett million"
+            ],
+            "correctOption": 1,
+            "source": "[00:34] - 'ñaar million yi gën ay blocs...'"
+        },
+        {
+            "question": "Ñaata kilo mooy poids bu benn bloc?",
+            "options": [
+                "Benn ton",
+                "Ñaar ton ak juróom-ñeent",
+                "Juróom ton"
+            ],
+            "correctOption": 1,
+            "source": "[00:42] - 'am ñaar ton ak juróom-ñeent'"
+        },
+        {
+            "question": "Pharaon bu ñu def piramide bi ngir kan?",
+            "options": [
+                "Ramsès II",
+                "Toutânkhamon",
+                "Khéops"
+            ],
+            "correctOption": 2,
+            "source": "[00:49] - 'yaram pharaon... Khéops'"
+        },
+        {
+            "question": "Lan mooy sawru bu njëkk bi piramide bi amoon?",
+            "options": [
+                "136 mètres",
+                "146 mètres",
+                "156 mètres"
+            ],
+            "correctOption": 1,
+            "source": "[01:03] - '146 mètres yi ci sawru'"
+        },
+        {
+            "question": "Ñaata at la dëkk ci mooy construction bu mag bu njëkk ci àdduna?",
+            "options": [
+                "1 000 at",
+                "2 000 at",
+                "3 500 at"
+            ],
+            "correctOption": 2,
+            "source": "[00:59] - 'Ci 3 500 at...'"
+        }
+    ]
+}

@@ -1,0 +1,54 @@
+{
+    "flashcards": [
+        {
+            "question": "Où est né Pythagore ?",
+            "options": [
+                "Athènes",
+                "Samos",
+                "Sparte"
+            ],
+            "correctOption": 1,
+            "source": "[00:36] - 'à Samos une île...'"
+        },
+        {
+            "question": "Vers quelle année Pythagore est-il né ?",
+            "options": [
+                "480 avant J.C.",
+                "580 avant J.C.",
+                "680 avant J.C."
+            ],
+            "correctOption": 1,
+            "source": "[00:34] - 'vers moins 580 avant Jésus Christ'"
+        },
+        {
+            "question": "Le théorème de Pythagore était-il connu avant lui ?",
+            "options": [
+                "Non, il l'a inventé",
+                "Oui, par les Égyptiens notamment",
+                "On ne sait pas"
+            ],
+            "correctOption": 1,
+            "source": "[00:55] - 'notamment par les Égyptiens'"
+        },
+        {
+            "question": "Quelle autre discipline Pythagore étudiait-il en plus des mathématiques ?",
+            "options": [
+                "La médecine",
+                "L'astronomie",
+                "L'architecture"
+            ],
+            "correctOption": 1,
+            "source": "[00:44] - 'savant astronome et philosophe'"
+        },
+        {
+            "question": "Où se situe l'île de Samos ?",
+            "options": [
+                "En mer Méditerranée",
+                "En mer Égée",
+                "En mer Noire"
+            ],
+            "correctOption": 1,
+            "source": "[00:38] - 'mer Égée au sud est...'"
+        }
+    ]
+}

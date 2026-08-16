@@ -1,0 +1,54 @@
+{
+    "flashcards": [
+        {
+            "question": "Where was Pythagoras born?",
+            "options": [
+                "Athens",
+                "Samos",
+                "Sparta"
+            ],
+            "correctOption": 1,
+            "source": "[00:36] - 'in Samos, an island...'"
+        },
+        {
+            "question": "Around what year was Pythagoras born?",
+            "options": [
+                "480 BC",
+                "580 BC",
+                "680 BC"
+            ],
+            "correctOption": 1,
+            "source": "[00:34] - 'around 580 BC'"
+        },
+        {
+            "question": "Was the Pythagorean theorem known before Pythagoras?",
+            "options": [
+                "No, he invented it",
+                "Yes, notably by the Egyptians",
+                "We don't know"
+            ],
+            "correctOption": 1,
+            "source": "[00:55] - 'notably by the Egyptians'"
+        },
+        {
+            "question": "What other discipline did Pythagoras study besides mathematics?",
+            "options": [
+                "Medicine",
+                "Astronomy",
+                "Architecture"
+            ],
+            "correctOption": 1,
+            "source": "[00:44] - 'learned astronomer and philosopher'"
+        },
+        {
+            "question": "Where is the island of Samos located?",
+            "options": [
+                "In the Mediterranean Sea",
+                "In the Aegean Sea",
+                "In the Black Sea"
+            ],
+            "correctOption": 1,
+            "source": "[00:38] - 'Aegean Sea in the southeast...'"
+        }
+    ]
+}

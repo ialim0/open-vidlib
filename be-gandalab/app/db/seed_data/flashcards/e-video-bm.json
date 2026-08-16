@@ -1,0 +1,54 @@
+{
+    "flashcards": [
+        {
+            "question": "Bloc calcaire joli bɛ Piramide Ba la?",
+            "options": [
+                "Miliyɔn kelen",
+                "Miliyɔn fila ka tɛmɛ",
+                "Miliyɔn saba"
+            ],
+            "correctOption": 1,
+            "source": "[00:34] - 'miliyɔn fila ka tɛmɛ bloc...'"
+        },
+        {
+            "question": "Bloc kelen giridɔn ye jumɛn ye?",
+            "options": [
+                "Ton kelen",
+                "Ton fila ni tlanwuli",
+                "Ton duuru"
+            ],
+            "correctOption": 1,
+            "source": "[00:42] - 'giridɔn ye ton fila ni tlanwuli ye'"
+        },
+        {
+            "question": "Farawɔn jumɛn ye piramide in jɔra a ye?",
+            "options": [
+                "Ramsès II",
+                "Toutânkhamon",
+                "Khéops"
+            ],
+            "correctOption": 2,
+            "source": "[00:49] - 'farawɔn... Khéops ka fasokan'"
+        },
+        {
+            "question": "Piramide janya bɛ jumɛn ye?",
+            "options": [
+                "Mɛtɛri 136",
+                "Mɛtɛri 146",
+                "Mɛtɛri 156"
+            ],
+            "correctOption": 1,
+            "source": "[01:03] - 'mɛtɛri 146 janya la'"
+        },
+        {
+            "question": "San joli y'a to k'a kɛ ko jɔlen janya bɔnɛn ye?",
+            "options": [
+                "San 1 000",
+                "San 2 000",
+                "San 3 500"
+            ],
+            "correctOption": 2,
+            "source": "[00:59] - 'San 3 500 kɔnɔ...'"
+        }
+    ]
+}

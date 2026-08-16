@@ -1,0 +1,54 @@
+{
+    "flashcards": [
+        {
+            "question": "Ban doole bu ñu dul gis moo ñuy pëlëx ci suuf?",
+            "options": [
+                "Magnetism",
+                "Gravité",
+                "Friction"
+            ],
+            "correctOption": 1,
+            "source": "[00:18] - 'li lañuy woowe gravité...'"
+        },
+        {
+            "question": "Kan moo feeñal gravité am na 300 at?",
+            "options": [
+                "Albert Einstein",
+                "Galileo Galilei",
+                "Sir Isaac Newton"
+            ],
+            "correctOption": 2,
+            "source": "[00:24] - 'Sir Isaac Newton... moo feeñal gravité...'"
+        },
+        {
+            "question": "Lan la Newton gis mu wàcc ci garab?",
+            "options": [
+                "Orans",
+                "Pom",
+                "Xob"
+            ],
+            "correctOption": 1,
+            "source": "[00:34] - 'gis na pom bu wàcc...'"
+        },
+        {
+            "question": "Lan mooy waral marée yi ci géej gi?",
+            "options": [
+                "Ngélaw li",
+                "Tangayu naaj bi",
+                "Bijj gi weer wi di bijj"
+            ],
+            "correctOption": 2,
+            "source": "[01:42] - 'ndax bijj gi weer wi di bijj'"
+        },
+        {
+            "question": "Nit ku am 150 livres, ñaata lay am ci weer wi?",
+            "options": [
+                "25 livres",
+                "50 livres",
+                "75 livres"
+            ],
+            "correctOption": 0,
+            "source": "[02:24] - 'du ëpp 25 livres...'"
+        }
+    ]
+}

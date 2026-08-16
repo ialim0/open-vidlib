@@ -1,0 +1,54 @@
+{
+    "flashcards": [
+        {
+            "question": "Combien de blocs de calcaire composent la Grande Pyramide ?",
+            "options": [
+                "Un million",
+                "Plus de deux millions",
+                "Trois millions"
+            ],
+            "correctOption": 1,
+            "source": "[00:34] - 'plus de deux millions de blocs...'"
+        },
+        {
+            "question": "Quel est le poids moyen d'un bloc de pierre ?",
+            "options": [
+                "Une tonne",
+                "Deux tonnes et demie",
+                "Cinq tonnes"
+            ],
+            "correctOption": 1,
+            "source": "[00:42] - 'pèse deux tonnes et demie'"
+        },
+        {
+            "question": "Pour quel pharaon la pyramide a-t-elle été construite ?",
+            "options": [
+                "Ramsès II",
+                "Toutânkhamon",
+                "Khéops"
+            ],
+            "correctOption": 2,
+            "source": "[00:49] - 'dépouille du pharaon... Khéops'"
+        },
+        {
+            "question": "Quelle est la hauteur originale de la pyramide ?",
+            "options": [
+                "136 mètres",
+                "146 mètres",
+                "156 mètres"
+            ],
+            "correctOption": 1,
+            "source": "[01:03] - 'ces 146 mètres de hauteur'"
+        },
+        {
+            "question": "Pendant combien de temps est-elle restée la plus haute construction humaine ?",
+            "options": [
+                "1 000 ans",
+                "2 000 ans",
+                "3 500 ans"
+            ],
+            "correctOption": 2,
+            "source": "[00:59] - 'Durant 3 500 ans...'"
+        }
+    ]
+}

@@ -1,0 +1,54 @@
+{
+    "flashcards": [
+        {
+            "question": "Who proposed the Turing Test?",
+            "options": [
+                "Albert Einstein",
+                "Alan Turing",
+                "Isaac Newton"
+            ],
+            "correctOption": 1,
+            "source": "[00:08] - 'Alan Turing, a brilliant mathematician...'"
+        },
+        {
+            "question": "In what year was the paper 'Computing Machinery and Intelligence' written?",
+            "options": [
+                "1940",
+                "1950",
+                "1960"
+            ],
+            "correctOption": 1,
+            "source": "[00:07] - 'Back in 1950...'"
+        },
+        {
+            "question": "What fundamental question did Turing tackle?",
+            "options": [
+                "Can machines fly?",
+                "Can machines think?",
+                "Can machines feel?"
+            ],
+            "correctOption": 1,
+            "source": "[00:17] - 'the huge question can machines think'"
+        },
+        {
+            "question": "What does the Turing Test involve?",
+            "options": [
+                "Solving complex math problems",
+                "A human judge talking to a human and a machine",
+                "Playing chess against a computer"
+            ],
+            "correctOption": 1,
+            "source": "[00:27] - 'Imagine a human judge having a conversation...'"
+        },
+        {
+            "question": "Does the Turing Test measure if a machine has feelings?",
+            "options": [
+                "Yes, absolutely",
+                "No, it measures if it can mimic human responses",
+                "It measures the machine's speed"
+            ],
+            "correctOption": 1,
+            "source": "[00:41] - 'It doesn't measure if a machine... has feelings...'"
+        }
+    ]
+}

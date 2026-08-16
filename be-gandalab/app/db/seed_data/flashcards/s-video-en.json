@@ -1,0 +1,54 @@
+{
+    "flashcards": [
+        {
+            "question": "What is the invisible force that pulls us back to Earth?",
+            "options": [
+                "Magnetism",
+                "Gravity",
+                "Friction"
+            ],
+            "correctOption": 1,
+            "source": "[00:18] - 'this is called gravity...'"
+        },
+        {
+            "question": "Who discovered gravity about 300 years ago?",
+            "options": [
+                "Albert Einstein",
+                "Galileo Galilei",
+                "Sir Isaac Newton"
+            ],
+            "correctOption": 2,
+            "source": "[00:24] - 'Sir Isaac Newton... discovered gravity...'"
+        },
+        {
+            "question": "What did Newton see fall from a tree?",
+            "options": [
+                "An orange",
+                "An apple",
+                "A leaf"
+            ],
+            "correctOption": 1,
+            "source": "[00:34] - 'saw an apple fall...'"
+        },
+        {
+            "question": "What causes tides in the sea and oceans?",
+            "options": [
+                "The wind",
+                "The sun's heat",
+                "The moon's gravitational pull"
+            ],
+            "correctOption": 2,
+            "source": "[01:42] - 'because of the gravitational pull of the moon'"
+        },
+        {
+            "question": "How much would a 150-pound person weigh on the moon?",
+            "options": [
+                "25 pounds",
+                "50 pounds",
+                "75 pounds"
+            ],
+            "correctOption": 0,
+            "source": "[02:24] - 'no more than 25 pounds...'"
+        }
+    ]
+}

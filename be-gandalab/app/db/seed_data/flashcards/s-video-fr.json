@@ -1,0 +1,54 @@
+{
+    "flashcards": [
+        {
+            "question": "Quelle est la force invisible qui nous ramène vers la Terre ?",
+            "options": [
+                "Magnétisme",
+                "Gravité",
+                "Friction"
+            ],
+            "correctOption": 1,
+            "source": "[00:18] - 'c'est ce qu'on appelle la gravité...'"
+        },
+        {
+            "question": "Qui a découvert la gravité il y a environ 300 ans ?",
+            "options": [
+                "Albert Einstein",
+                "Galileo Galilei",
+                "Sir Isaac Newton"
+            ],
+            "correctOption": 2,
+            "source": "[00:24] - 'Sir Isaac Newton... a découvert la gravité...'"
+        },
+        {
+            "question": "Qu'est-ce que Newton a vu tomber d'un arbre ?",
+            "options": [
+                "Une orange",
+                "Une pomme",
+                "Une feuille"
+            ],
+            "correctOption": 1,
+            "source": "[00:34] - 'a vu une pomme tomber...'"
+        },
+        {
+            "question": "Qu'est-ce qui cause les marées dans la mer et les océans ?",
+            "options": [
+                "Le vent",
+                "La chaleur du soleil",
+                "L'attraction gravitationnelle de la lune"
+            ],
+            "correctOption": 2,
+            "source": "[01:42] - 'à cause de l'attraction gravitationnelle de la lune'"
+        },
+        {
+            "question": "Combien pèserait une personne de 150 livres sur la lune ?",
+            "options": [
+                "25 livres",
+                "50 livres",
+                "75 livres"
+            ],
+            "correctOption": 0,
+            "source": "[02:24] - 'pas plus de 25 livres...'"
+        }
+    ]
+}
