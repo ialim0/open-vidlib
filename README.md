@@ -87,51 +87,81 @@ Interactive docs: `http://localhost:8000/api/v1/docs`
 
 ## Quickstart
 
-### With Docker
+The easiest way to run the complete application is with Docker Compose. This starts three services: PostgreSQL with pgvector, the FastAPI backend, and the Next.js frontend.
+
+### 1. Install prerequisites
+
+Install and start [Docker Desktop](https://www.docker.com/products/docker-desktop/) (or Docker Engine with Docker Compose v2). Verify that Docker is running:
 
 ```bash
-git clone https://github.com/your-username/gandalab.git
-cd gandalab
+docker --version
+docker compose version
+```
 
+### 2. Download the project
+
+```bash
+git clone https://github.com/ialim0/open-vidlib.git
+cd open-vidlib
+```
+
+### 3. Create your environment file
+
+The root `.env` file is read by `docker compose`. Create it from the example:
+
+```bash
 cp .env.example .env
-# optional: add MISTRAL_API_KEY=... to .env
+```
 
+Open `.env` and optionally add your Mistral API key:
+
+```dotenv
+MISTRAL_API_KEY=your_mistral_api_key
+```
+
+The app works without this key, but semantic search, AI answers, translation, and dubbing will use fallback behavior or be unavailable. Get a key from [console.mistral.ai](https://console.mistral.ai).
+
+### 4. Build and start all services
+
+Run this from the repository root (`open-vidlib`):
+
+```bash
 docker compose up --build
 ```
 
-- Frontend → http://localhost:3000  
-- API docs → http://localhost:8000/api/v1/docs
+The first build can take several minutes. Keep this terminal open to see logs. When the services are ready, open:
 
-### Local development
+- Frontend: http://localhost:3000
+- API documentation: http://localhost:8000/api/v1/docs
+- API health check: http://localhost:8000/api/v1/health
 
-**Backend**
-
-```bash
-cd be-gandalab
-
-python -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt
-
-cp .env.example .env      # set DATABASE_URL and MISTRAL_API_KEY
-uvicorn app.main:app --reload
-```
-
-**Frontend**
+To run in the background instead:
 
 ```bash
-cd fe-gandalab
-npm install
-npm run dev
+docker compose up --build -d
+docker compose logs -f
 ```
 
-**Tests**
+### 5. Stop the application
 
 ```bash
-cd be-gandalab
-PYTHONPATH=. pytest -v tests/
+docker compose down
 ```
 
----
+This stops the containers and keeps the PostgreSQL data. Start again later with `docker compose up`.
+
+To stop the application and delete the database volume (this permanently removes local database data):
+
+```bash
+docker compose down -v
+```
+
+### Troubleshooting
+
+- If Docker reports that `.next/standalone` is missing, pull the latest code and rebuild: `git pull && docker compose build --no-cache web && docker compose up`.
+- If a port is already in use, stop the conflicting service or change `3000`, `8000`, or `5432` in `docker-compose.yml`.
+- To inspect one service, run `docker compose logs -f web`, `docker compose logs -f api`, or `docker compose logs -f db`.
+- If the API starts before the database is ready, wait a few seconds and check `docker compose ps`; the Compose health check will allow the API to start when PostgreSQL is ready.
 
 ## Adding a video
 
