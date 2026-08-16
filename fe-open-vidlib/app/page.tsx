@@ -105,6 +105,17 @@ export default function HomePage() {
       {/* Hero Section */}
       <section className="relative overflow-hidden pt-12 pb-8 md:pt-20 md:pb-12 border-b bg-gradient-to-b from-muted/30 to-background">
         <div className="container mx-auto px-4 text-center max-w-4xl">
+          <div className="mx-auto mb-10 max-w-4xl overflow-hidden rounded-2xl border bg-card shadow-sm">
+            <div className="aspect-video">
+              <iframe
+                src="https://www.loom.com/embed/9d702ff0ab37478bb8af5f467e8b43f3"
+                title="Open VidLib product demo"
+                className="h-full w-full"
+                allow="autoplay; fullscreen; picture-in-picture"
+                allowFullScreen
+              />
+            </div>
+          </div>
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold uppercase tracking-wider mb-6 border border-primary/20">
             <Sparkles className="h-3.5 w-3.5" />
             <span>Interactive STEM Video Library</span>
@@ -151,38 +162,6 @@ export default function HomePage() {
                 </Badge>
               ))}
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Product Demo */}
-      <section className="border-b bg-background py-10">
-        <div className="container mx-auto max-w-4xl px-4">
-          <div className="mb-5 text-center">
-            <div className="mb-2 text-sm font-semibold uppercase tracking-wider text-primary">See it in action</div>
-            <h2 className="text-2xl font-bold tracking-tight">Open VidLib demo</h2>
-            <p className="mt-2 text-sm text-muted-foreground">Watch the short walkthrough of the learning experience.</p>
-          </div>
-          <div className="overflow-hidden rounded-2xl border bg-card shadow-sm">
-            <div className="aspect-video">
-              <iframe
-                src="https://www.loom.com/embed/9d702ff0ab37478bb8af5f467e8b43f3"
-                title="Open VidLib product demo"
-                className="h-full w-full"
-                allow="autoplay; fullscreen; picture-in-picture"
-                allowFullScreen
-              />
-            </div>
-          </div>
-          <div className="mt-3 text-center text-xs text-muted-foreground">
-            <a
-              href="https://www.loom.com/share/9d702ff0ab37478bb8af5f467e8b43f3"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-primary hover:underline"
-            >
-              Open the demo directly on Loom →
-            </a>
           </div>
         </div>
       </section>
