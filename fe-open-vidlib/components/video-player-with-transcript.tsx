@@ -2,11 +2,11 @@
 
 import { useState, useEffect, useRef, useMemo, forwardRef, useImperativeHandle } from "react"
 import { getYouTubeEmbedUrl } from "@/lib/utils"
-import { Play, Pause, Clock, Search, Sparkles, Volume2, Globe } from "lucide-react"
+import { Play, Pause, Clock, Search, Sparkles, Loader2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
-import { searchVideoSemantically, SearchResultItem, DubbedTrack } from "@/lib/api/videos"
+import { API_BASE_URL, searchVideoSemantically, SearchResultItem, DubbedTrack } from "@/lib/api/videos"
 
 interface TranscriptWord {
     word: string
@@ -20,6 +20,7 @@ interface VideoPlayerWithTranscriptProps {
     transcriptWords?: TranscriptWord[]
     liveCaptionsLabel?: string
     activeDubTrack?: DubbedTrack | null
+    isDubbingLoading?: boolean
 }
 
 export const VideoPlayerWithTranscript = forwardRef<{ seekTo: (time: number) => void }, VideoPlayerWithTranscriptProps>(
@@ -28,7 +29,8 @@ export const VideoPlayerWithTranscript = forwardRef<{ seekTo: (time: number) => 
         videoUrl,
         transcriptWords,
         liveCaptionsLabel = "Live Captions",
-        activeDubTrack
+        activeDubTrack,
+        isDubbingLoading = false
     }, ref) {
         const [currentTime, setCurrentTime] = useState(0)
         const [maxRevealedTime, setMaxRevealedTime] = useState(0)
@@ -43,6 +45,7 @@ export const VideoPlayerWithTranscript = forwardRef<{ seekTo: (time: number) => 
         const animationFrameRef = useRef<number | null>(null)
         const playerRef = useRef<any>(null)
         const audioRef = useRef<HTMLAudioElement | null>(null)
+        const dubbedSegmentRef = useRef<number | null>(null)
 
         const getVideoId = (url: string) => {
             const match = url.match(/(?:youtu\.be\/|youtube\.com(?:\/embed\/|\/v\/|\/watch\?v=|\/watch\?.+&v=))([^&?\/]+)/)
@@ -135,6 +138,44 @@ export const VideoPlayerWithTranscript = forwardRef<{ seekTo: (time: number) => 
                 }
             }
         }, [isPlaying, player])
+
+        useEffect(() => {
+            const audio = audioRef.current
+            if (!audio) return
+
+            if (!activeDubTrack || activeDubTrack.segments.length === 0) {
+                audio.pause()
+                audio.removeAttribute("src")
+                audio.load()
+                dubbedSegmentRef.current = null
+                playerRef.current?.unMute?.()
+                return
+            }
+
+            playerRef.current?.mute?.()
+            if (!isPlaying) {
+                audio.pause()
+                return
+            }
+
+            const segment = activeDubTrack.segments.find((item) => currentTime >= item.start && currentTime < item.end)
+            if (!segment) {
+                audio.pause()
+                return
+            }
+
+            const apiOrigin = API_BASE_URL.substring(0, API_BASE_URL.indexOf("/api/v1"))
+            const audioUrl = segment.audio_url.startsWith("http") ? segment.audio_url : `${apiOrigin}${segment.audio_url}`
+            if (dubbedSegmentRef.current !== segment.segment_id || audio.src !== audioUrl) {
+                audio.src = audioUrl
+                audio.load()
+                dubbedSegmentRef.current = segment.segment_id ?? null
+            }
+
+            const offset = Math.max(0, currentTime - segment.start)
+            if (Math.abs(audio.currentTime - offset) > 0.35) audio.currentTime = offset
+            audio.play().catch(() => undefined)
+        }, [activeDubTrack, currentTime, isPlaying])
 
         const getCurrentWordIndex = () => {
             if (!transcriptWords || transcriptWords.length === 0) return -1
@@ -239,6 +280,16 @@ export const VideoPlayerWithTranscript = forwardRef<{ seekTo: (time: number) => 
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
                     />
+                    <audio ref={audioRef} preload="auto" className="hidden" />
+
+                    {isDubbingLoading && (
+                        <div className="absolute inset-0 z-20 flex items-center justify-center bg-black/70 p-6 text-center text-white">
+                            <div className="flex flex-col items-center gap-3">
+                                <Loader2 className="h-8 w-8 animate-spin" />
+                                <p className="text-sm font-medium">This video is being translated. Please wait a moment...</p>
+                            </div>
+                        </div>
+                    )}
 
                     {/* Controls Overlay */}
                     <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-background/95 backdrop-blur-sm rounded-full px-6 py-3 shadow-lg border opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">

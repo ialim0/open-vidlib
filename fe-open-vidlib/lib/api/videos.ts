@@ -72,7 +72,7 @@ export interface AgentResponse {
     timestamp?: string
 }
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api/v1'
+export const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api/v1'
 
 export const FALLBACK_VIDEOS: VideoDetail[] = [
     {
@@ -227,11 +227,11 @@ export async function requestDubbedTrack(videoId: string, language: string, voic
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ language, voice_gender: voiceGender })
         })
-        if (!res.ok) throw new Error(`Dubbing request error: ${res.statusText}`)
+        if (!res.ok) throw new Error("Dubbing request failed")
         return await res.json()
     } catch (e) {
         console.warn("Dubbing request failed:", e)
-        return null
+        throw e
     }
 }
 

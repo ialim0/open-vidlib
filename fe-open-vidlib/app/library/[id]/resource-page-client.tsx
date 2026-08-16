@@ -11,7 +11,7 @@ import { getYouTubeEmbedUrl } from "@/lib/utils"
 import { VideoPlayerWithTranscript } from "@/components/video-player-with-transcript"
 import { CoumbaChat } from "@/components/coumba-chat"
 import { useLanguage } from "@/lib/i18n/language-context"
-import { requestDubbedTrack, DubbedTrack } from "@/lib/api/videos"
+import { getDubbedAudioTrack, requestDubbedTrack, DubbedTrack } from "@/lib/api/videos"
 import { Flashcard } from "@/components/flashcard-quiz"
 import Link from "next/link"
 
@@ -41,6 +41,7 @@ export function ResourcePageClient({ resource }: ResourcePageClientProps) {
     const [noteContent, setNoteContent] = useState("")
     const [activeDubTrack, setActiveDubTrack] = useState<DubbedTrack | null>(null)
     const [dubbingLoadingLang, setDubbingLoadingLang] = useState<string | null>(null)
+    const [dubbingError, setDubbingError] = useState<string | null>(null)
     const editorRef = useRef<HTMLDivElement>(null)
     const videoPlayerRef = useRef<any>(null)
 
@@ -63,14 +64,22 @@ export function ResourcePageClient({ resource }: ResourcePageClientProps) {
     }
 
     const handleTriggerDubbing = async (targetLang: string) => {
+        if (!['en', 'fr'].includes(targetLang)) return
+        setDubbingError(null)
         setDubbingLoadingLang(targetLang)
         try {
-            const track = await requestDubbedTrack(resource.id, targetLang, "female")
-            if (track) {
-                setActiveDubTrack(track)
+            const cached = await getDubbedAudioTrack(resource.id, targetLang)
+            if (cached?.segments?.length) {
+                setActiveDubTrack(cached)
+                return
             }
+
+            const track = await requestDubbedTrack(resource.id, targetLang, "female")
+            if (!track?.segments?.length) throw new Error("No translated audio was returned")
+            setActiveDubTrack(track)
         } catch (err) {
             console.error("Dubbing failed:", err)
+            setDubbingError("The translation could not be created. Please try again.")
         } finally {
             setDubbingLoadingLang(null)
         }
@@ -119,6 +128,7 @@ export function ResourcePageClient({ resource }: ResourcePageClientProps) {
                             transcriptWords={resource.transcriptWords}
                             liveCaptionsLabel={t.library?.liveCaptions || "Live Captions"}
                             activeDubTrack={activeDubTrack}
+                            isDubbingLoading={Boolean(dubbingLoadingLang)}
                         />
                     </div>
 
@@ -131,15 +141,16 @@ export function ResourcePageClient({ resource }: ResourcePageClientProps) {
                                     <span className="hidden sm:inline">AI Voiceover (Voxtral):</span>
                                 </div>
                                 
-                                {["fr", "es", "en", "wo", "ff", "bm"].map((langCode) => {
+                                {["fr", "en", "es", "wo", "ff", "bm"].map((langCode) => {
                                     const labels: Record<string, string> = {
                                         fr: "French",
-                                        es: "Spanish",
                                         en: "English",
+                                        es: "Spanish",
                                         wo: "Wolof",
                                         ff: "Pulaar",
                                         bm: "Bambara"
                                     }
+                                    const isSupported = langCode === "en" || langCode === "fr"
                                     const isLoading = dubbingLoadingLang === langCode
                                     const isActive = activeDubTrack?.language === langCode
 
@@ -149,11 +160,12 @@ export function ResourcePageClient({ resource }: ResourcePageClientProps) {
                                             variant={isActive ? "default" : "ghost"}
                                             size="sm"
                                             onClick={() => handleTriggerDubbing(langCode)}
-                                            disabled={isLoading}
+                                            disabled={isLoading || !isSupported}
+                                            title={isSupported ? `Generate ${labels[langCode]} audio` : `${labels[langCode]} audio is coming soon`}
                                             className="h-7 text-xs px-2.5 rounded-md hover:bg-background hover:shadow-xs transition-all"
                                         >
                                             {isLoading && <Loader2 className="h-3 w-3 animate-spin mr-1" />}
-                                            {labels[langCode] || langCode.toUpperCase()}
+                                            {isSupported ? labels[langCode] : `${labels[langCode]} (Coming soon)`}
                                         </Button>
                                     )
                                 })}
@@ -170,6 +182,7 @@ export function ResourcePageClient({ resource }: ResourcePageClientProps) {
                                 </Button>
                             </div>
                         </div>
+                        {dubbingError && <p className="mt-2 text-center text-xs text-destructive">{dubbingError}</p>}
                     </div>
                 </div>
 

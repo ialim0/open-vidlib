@@ -13,7 +13,7 @@ from app.schemas.mistral_schemas import (
 from app.services.ingest_service import chunk_and_embed
 from app.services.search_service import search_video
 from app.services.rag_qa_service import ask_video_question
-from app.services.dubbing_service import create_dubbed_track
+from app.services.dubbing_service import create_dubbed_track, SUPPORTED_DUB_LANGUAGES
 from app.services.agent_router import route_user_intent
 
 router = APIRouter()
@@ -97,6 +97,9 @@ def dub_video(
     video = db.query(Video).filter(Video.id == video_id).first()
     if not video:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Video '{video_id}' not found")
+
+    if payload.language.lower() not in SUPPORTED_DUB_LANGUAGES:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Dubbing is currently available only in English and French. Other languages are coming soon.")
 
     result = create_dubbed_track(video_id, payload.language, payload.voice_gender, db)
     return DubbedTrackResponse(**result)

@@ -1,5 +1,6 @@
 import os
 import logging
+from pathlib import Path
 from sqlalchemy.orm import Session
 from app.core.voice_presets import get_voice_id
 from app.services.translation_service import translate_segment
@@ -9,10 +10,16 @@ from app.models.audio_dub import AudioDub
 
 logger = logging.getLogger(__name__)
 
+SUPPORTED_DUB_LANGUAGES = {"en", "fr"}
+
 def create_dubbed_track(video_id: str, target_lang: str, voice_gender: str, db: Session) -> dict:
     """
     Translate segments for video -> generate Voxtral audio dubs -> store metadata.
     """
+    target_lang = target_lang.lower()
+    if target_lang not in SUPPORTED_DUB_LANGUAGES:
+        raise ValueError("Dubbing is currently available only in English and French.")
+
     voice_id = get_voice_id(target_lang, voice_gender)
     segments = db.query(VideoSegment).filter(
         VideoSegment.video_id == video_id
@@ -21,6 +28,15 @@ def create_dubbed_track(video_id: str, target_lang: str, voice_gender: str, db: 
     dubbed_segments = []
 
     for seg in segments:
+        existing_dub = db.query(AudioDub).filter(
+            AudioDub.video_id == video_id,
+            AudioDub.segment_id == seg.id,
+            AudioDub.language == target_lang
+        ).first()
+        if existing_dub and Path(existing_dub.audio_path.lstrip(chr(47))).exists():
+            dubbed_segments.append(existing_dub)
+            continue
+
         # 1. Translate
         translated = translate_segment(seg.text, target_lang)
         seg.translated_text = translated
