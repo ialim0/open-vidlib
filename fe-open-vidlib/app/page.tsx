@@ -103,7 +103,7 @@ export default function HomePage() {
       </header>
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden pt-12 pb-8 md:pt-20 md:pb-12 border-b bg-gradient-to-b from-muted/30 to-background">
+      <section className="relative overflow-hidden pt-8 pb-8 md:pt-10 md:pb-12 border-b bg-gradient-to-b from-muted/30 to-background">
         <div className="container mx-auto px-4 text-center max-w-4xl">
           <div className="mx-auto mb-10 max-w-4xl overflow-hidden rounded-2xl border bg-card shadow-sm">
             <div className="aspect-video">
@@ -116,19 +116,6 @@ export default function HomePage() {
               />
             </div>
           </div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold uppercase tracking-wider mb-6 border border-primary/20">
-            <Sparkles className="h-3.5 w-3.5" />
-            <span>Interactive STEM Video Library</span>
-          </div>
-
-          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-foreground text-balance mb-6">
-            {t.home?.subtitle || "Democratizing STEM Learning Through AI"}
-          </h1>
-
-          <p className="text-lg md:text-xl text-muted-foreground text-balance max-w-2xl mx-auto mb-10 leading-relaxed">
-            {t.library?.subtitle || "Explore curated educational videos with real-time synchronized transcripts, interactive Coumba AI assistant, and multi-language flashcards."}
-          </p>
-
           {/* Search & Filter Bar directly in Hero */}
           <div className="max-w-2xl mx-auto space-y-4">
             <div className="relative">
