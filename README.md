@@ -92,9 +92,7 @@ the highest-ranked, non-redundant transcript evidence to the model and asks it
 to cite timestamps; it must say when the transcript does not contain enough
 evidence.
 
-The current dubbing UI exposes English and French. A requested French track is
-translated, synthesized, and cached segment-by-segment; later requests reuse
-successful files. Other languages are displayed as coming soon until a voice
+The current dubbing UI exposes English and French. A requested track is translated, synthesized, and cached segment-by-segment; its translated caption manifest is cached beside the audio and shown in sync during playback. Later requests reuse successful audio and captions. Other languages are displayed as coming soon until a voice
 preset is implemented.
 
 ---

@@ -268,6 +268,10 @@ export const VideoPlayerWithTranscript = forwardRef<{ seekTo: (time: number) => 
         }
 
         const lines = useMemo(() => groupWordsIntoLines(), [transcriptWords])
+        const translatedCaptions = useMemo(
+            () => (activeDubTrack?.segments || []).filter((segment) => segment.translated_text?.trim()),
+            [activeDubTrack]
+        )
 
         return (
             <div className="h-full flex flex-col bg-background rounded-xl overflow-hidden border shadow-sm">
@@ -361,7 +365,31 @@ export const VideoPlayerWithTranscript = forwardRef<{ seekTo: (time: number) => 
 
                     {/* Tab 1: Live Interactive Captions */}
                     {activeTab === "captions" && (
-                        transcriptWords && transcriptWords.length > 0 ? (
+                        translatedCaptions.length > 0 ? (
+                            <div className="flex-1 overflow-y-auto p-5 scroll-smooth relative">
+                                <div className="mb-3 text-[11px] font-medium uppercase tracking-wide text-primary">Translated captions</div>
+                                <div className="space-y-3">
+                                    {translatedCaptions.map((caption) => {
+                                        const isCurrentCaption = currentTime >= caption.start && currentTime <= caption.end
+                                        const isPastCaption = currentTime > caption.end
+                                        return (
+                                            <button
+                                                type="button"
+                                                key={caption.segment_id ?? `${caption.start}-${caption.end}`}
+                                                onClick={() => {
+                                                    player?.seekTo?.(caption.start, true)
+                                                    setCurrentTime(caption.start)
+                                                }}
+                                                className={`block w-full rounded-lg p-2 text-left leading-relaxed transition-colors ${isCurrentCaption ? "bg-blue-600 text-white font-semibold shadow-md" : isPastCaption ? "text-muted-foreground hover:text-foreground" : "text-foreground hover:bg-primary/10"}`}
+                                            >
+                                                <span className="mr-2 font-mono text-[10px] opacity-70">{formatTime(caption.start)}</span>
+                                                {caption.translated_text}
+                                            </button>
+                                        )
+                                    })}
+                                </div>
+                            </div>
+                        ) : transcriptWords && transcriptWords.length > 0 ? (
                             <div className="flex-1 overflow-y-auto p-5 scroll-smooth relative">
                                 <div className="space-y-3">
                                     {lines.map((line) => {

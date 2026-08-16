@@ -15,7 +15,7 @@ from app.schemas.mistral_schemas import (
 from app.services.ingest_service import chunk_and_embed
 from app.services.search_service import search_video
 from app.services.rag_qa_service import ask_video_question
-from app.services.dubbing_service import create_dubbed_track, SUPPORTED_DUB_LANGUAGES
+from app.services.dubbing_service import create_dubbed_track, load_translated_captions, SUPPORTED_DUB_LANGUAGES
 from app.services.agent_router import route_user_intent
 
 router = APIRouter()
@@ -128,13 +128,14 @@ def get_dubbed_track(
         and Path(dub.audio_path.lstrip("/" )).stat().st_size > 1024
     ]
 
+    translated_captions = load_translated_captions(video_id, lang)
     segments = [
         {
             "segment_id": d.segment_id,
             "audio_url": d.audio_path,
             "start": d.start_time,
             "end": d.end_time,
-            "translated_text": getattr(d.segment, "translated_text", None) if d.segment else None
+            "translated_text": translated_captions.get(d.segment_id) or (getattr(d.segment, "translated_text", None) if d.segment else None)
         }
         for d in dubs
     ]

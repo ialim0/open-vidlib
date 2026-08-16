@@ -51,8 +51,9 @@ public/                          Brand assets, including the Open VidLib logo.
 
 ## User-facing behavior
 
-- English and French dubbing are supported. The first request generates and caches audio segments; later requests reuse successful cached segments.
+- English and French dubbing are supported. The first request generates and caches audio segments plus a timestamp-matched translated caption manifest; later requests reuse both.
 - Other language choices are shown as coming soon until their translation and voice presets are implemented.
+- When dubbed audio is active, the caption panel switches from the original word-level transcript to the matching translated caption segments.
 - Search and Explain Concept fill the chat input so the learner can edit the request before sending it.
 - The frontend contains no Mistral credentials or AI orchestration; all retrieval, RAG, translation, and TTS requests go through the API.
 

@@ -1,4 +1,5 @@
 import os
+import json
 import logging
 from pathlib import Path
 from sqlalchemy.orm import Session
@@ -11,6 +12,20 @@ from app.models.audio_dub import AudioDub
 logger = logging.getLogger(__name__)
 
 SUPPORTED_DUB_LANGUAGES = {"en", "fr"}
+
+
+def _caption_manifest_path(video_id: str, language: str) -> Path:
+    return Path(f"static/dubs/{video_id}/{language}/captions.json")
+
+
+def load_translated_captions(video_id: str, language: str) -> dict[int, str]:
+    """Load the persistent translated caption text for a cached audio track."""
+    path = _caption_manifest_path(video_id, language.lower())
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+        return {int(item["segment_id"]): str(item["text"]) for item in payload if item.get("text")}
+    except (FileNotFoundError, json.JSONDecodeError, TypeError, ValueError, KeyError):
+        return {}
 
 def create_dubbed_track(video_id: str, target_lang: str, voice_gender: str, db: Session) -> dict:
     """
@@ -26,6 +41,7 @@ def create_dubbed_track(video_id: str, target_lang: str, voice_gender: str, db: 
     ).order_by(VideoSegment.start_time.asc()).all()
 
     dubbed_segments = []
+    translated_captions = load_translated_captions(video_id, target_lang)
 
     for seg in segments:
         existing_dub = db.query(AudioDub).filter(
@@ -34,11 +50,14 @@ def create_dubbed_track(video_id: str, target_lang: str, voice_gender: str, db: 
             AudioDub.language == target_lang
         ).first()
         if existing_dub and Path(existing_dub.audio_path.lstrip(chr(47))).exists() and Path(existing_dub.audio_path.lstrip(chr(47))).stat().st_size > 1024:
+            if seg.id not in translated_captions:
+                translated_captions[seg.id] = getattr(seg, "translated_text", None) or (seg.text if target_lang == "en" else seg.text)
             dubbed_segments.append(existing_dub)
             continue
 
-        # 1. Translate
+        # 1. Translate the exact caption window used by the audio segment.
         translated = translate_segment(seg.text, target_lang)
+        translated_captions[seg.id] = translated
         seg.translated_text = translated
 
         # 2. Generate speech
@@ -73,6 +92,25 @@ def create_dubbed_track(video_id: str, target_lang: str, voice_gender: str, db: 
 
     db.commit()
 
+    manifest_path = _caption_manifest_path(video_id, target_lang)
+    manifest_path.parent.mkdir(parents=True, exist_ok=True)
+    manifest_path.write_text(
+        json.dumps(
+            [
+                {
+                    "segment_id": d.segment_id,
+                    "start": d.start_time,
+                    "end": d.end_time,
+                    "text": translated_captions.get(d.segment_id, ""),
+                }
+                for d in dubbed_segments
+            ],
+            ensure_ascii=False,
+            indent=2,
+        ),
+        encoding="utf-8",
+    )
+
     return {
         "video_id": video_id,
         "language": target_lang,
@@ -84,7 +122,7 @@ def create_dubbed_track(video_id: str, target_lang: str, voice_gender: str, db: 
                 "audio_url": d.audio_path,
                 "start": d.start_time,
                 "end": d.end_time,
-                "translated_text": getattr(d.segment, "translated_text", None) if d.segment else None
+                "translated_text": translated_captions.get(d.segment_id) or getattr(d.segment, "translated_text", None) if d.segment else translated_captions.get(d.segment_id)
             }
             for d in dubbed_segments
         ]

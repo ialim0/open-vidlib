@@ -105,10 +105,12 @@ Conversation history is persisted in the `qa_sessions` table.
 video segments  →  translate each with mistral-large (spoken-optimised prompt)
                 →  voxtral-mini-tts for each translated chunk
                 →  write mp3 to static/dubs/{video_id}/{lang}/
+                →  write captions.json with the same segment timestamps
                 →  upsert AudioDub records
 ```
 
 Dubbed tracks are served as static files at `/static/dubs/...`.
+The translated caption manifest is served through the same API response, so the frontend can display the caption text that matches the active audio segment.
 
 ### 5 — Agent router (`POST /api/v1/videos/{id}/agent-chat`)
 
