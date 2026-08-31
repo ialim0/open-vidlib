@@ -1,0 +1,54 @@
+{
+    "flashcards": [
+        {
+            "question": "How many limestone blocks make up the Great Pyramid?",
+            "options": [
+                "One million",
+                "Over two million",
+                "Three million"
+            ],
+            "correctOption": 1,
+            "source": "[00:34] - 'over two million blocks...'"
+        },
+        {
+            "question": "What is the average weight of a stone block?",
+            "options": [
+                "One ton",
+                "Two and a half tons",
+                "Five tons"
+            ],
+            "correctOption": 1,
+            "source": "[00:42] - 'weighs two and a half tons'"
+        },
+        {
+            "question": "For which pharaoh was the pyramid built?",
+            "options": [
+                "Ramses II",
+                "Tutankhamun",
+                "Khufu (Cheops)"
+            ],
+            "correctOption": 2,
+            "source": "[00:49] - 'remains of pharaoh... Khufu'"
+        },
+        {
+            "question": "What is the original height of the pyramid?",
+            "options": [
+                "136 meters",
+                "146 meters",
+                "156 meters"
+            ],
+            "correctOption": 1,
+            "source": "[01:03] - 'these 146 meters in height'"
+        },
+        {
+            "question": "For how long did it remain the tallest human-made structure?",
+            "options": [
+                "1,000 years",
+                "2,000 years",
+                "3,500 years"
+            ],
+            "correctOption": 2,
+            "source": "[00:59] - 'For 3,500 years...'"
+        }
+    ]
+}

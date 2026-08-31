@@ -1,0 +1,54 @@
+{
+    "flashcards": [
+        {
+            "question": "Fanga min bɛ an segi ka segin duguma kan, o ye mun ye?",
+            "options": [
+                "Magnetismu",
+                "Gravite",
+                "Friction"
+            ],
+            "correctOption": 1,
+            "source": "[00:18] - 'o tɔgɔ ye gravite...'"
+        },
+        {
+            "question": "Mɔgɔ jumɛn ye gravite ye san 300 tɛmɛnen?",
+            "options": [
+                "Albert Einstein",
+                "Galileo Galilei",
+                "Sir Isaac Newton"
+            ],
+            "correctOption": 2,
+            "source": "[00:24] - 'Sir Isaac Newton... ye gravite ye...'"
+        },
+        {
+            "question": "Mun ye Newton ye bɔ yiri kan?",
+            "options": [
+                "Oranjɛ dɔ",
+                "Pɔmu dɔ",
+                "Furu dɔ"
+            ],
+            "correctOption": 1,
+            "source": "[00:34] - 'pɔmu dɔ bɔra...'"
+        },
+        {
+            "question": "Mun bɛ kɔgɔji kɛ baji ni kɔgɔjiw la?",
+            "options": [
+                "Fiɲɛ",
+                "Tile ka funteni",
+                "Kalo ka gravite samini"
+            ],
+            "correctOption": 2,
+            "source": "[01:42] - 'kalo ka gravite samini kosɔn'"
+        },
+        {
+            "question": "Mɔgɔ min giridɔn ye livri 150, a ka giridɔn bɛna kɛ jumɛn ye kalo kan?",
+            "options": [
+                "Livri 25",
+                "Livri 50",
+                "Livri 75"
+            ],
+            "correctOption": 0,
+            "source": "[02:24] - 'livri 25 dɔrɔn...'"
+        }
+    ]
+}

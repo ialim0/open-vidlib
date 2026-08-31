@@ -1,0 +1,54 @@
+{
+    "flashcards": [
+        {
+            "question": "Ko honɗum woni doole ɗe yiyataa ɗe pawtata en e leydi?",
+            "options": [
+                "Magnetism",
+                "Gravité",
+                "Friction"
+            ],
+            "correctOption": 1,
+            "source": "[00:18] - 'ɗum ko gravité...'"
+        },
+        {
+            "question": "Ko hombo yiyi gravité ko waɗi duuɓi 300?",
+            "options": [
+                "Albert Einstein",
+                "Galileo Galilei",
+                "Sir Isaac Newton"
+            ],
+            "correctOption": 2,
+            "source": "[00:24] - 'Sir Isaac Newton... yiyi gravité...'"
+        },
+        {
+            "question": "Ko honɗum Newton yiyi ina saama e lekki?",
+            "options": [
+                "Liimuuna",
+                "Pomme",
+                "Hako"
+            ],
+            "correctOption": 1,
+            "source": "[00:34] - 'o yiyi pomme ina saama...'"
+        },
+        {
+            "question": "Ko honɗum addata beeli e nder maayo?",
+            "options": [
+                "Hendu",
+                "Wuleede naange",
+                "Pawtol lewru"
+            ],
+            "correctOption": 2,
+            "source": "[01:42] - 'sababu pawtol lewru'"
+        },
+        {
+            "question": "Neɗɗo jogiiɗo 150 livres, foti o fawtata e lewru?",
+            "options": [
+                "25 livres",
+                "50 livres",
+                "75 livres"
+            ],
+            "correctOption": 0,
+            "source": "[02:24] - 'ɓuraa 25 livres...'"
+        }
+    ]
+}

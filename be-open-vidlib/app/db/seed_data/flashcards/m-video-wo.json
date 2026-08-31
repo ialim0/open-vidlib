@@ -1,0 +1,54 @@
+{
+    "flashcards": [
+        {
+            "question": "Ana Pythagoras jibbu?",
+            "options": [
+                "Athens",
+                "Samos",
+                "Sparta"
+            ],
+            "correctOption": 1,
+            "source": "[00:36] - 'ci Samos, benn dun...'"
+        },
+        {
+            "question": "Pythagoras jibbu ñaata at?",
+            "options": [
+                "480 ganaaw JC",
+                "580 ganaaw JC",
+                "680 ganaaw JC"
+            ],
+            "correctOption": 1,
+            "source": "[00:34] - 'ci 580 ganaaw Jésus Christ'"
+        },
+        {
+            "question": "Ndax théorème Pythagore xamoon nañu ko gaañu?",
+            "options": [
+                "Déedéet, moom la ko sosé",
+                "Waaw, Égyptien yi xamoon nañu ko",
+                "Xamnañu ko wala xamunañu ko"
+            ],
+            "correctOption": 1,
+            "source": "[00:55] - 'Égyptien yi xamoon nañu ko'"
+        },
+        {
+            "question": "Lan mooy yeneen xam-xam bu Pythagoras jàng ci biir xayma?",
+            "options": [
+                "Médecine",
+                "Astronomie",
+                "Architecture"
+            ],
+            "correctOption": 1,
+            "source": "[00:44] - 'xam-xam bu mag ci àstronomi ak filozofi'"
+        },
+        {
+            "question": "Ana dun Samos nekk?",
+            "options": [
+                "Ci géej Méditerranée",
+                "Ci géej Égée",
+                "Ci géej Noir"
+            ],
+            "correctOption": 1,
+            "source": "[00:38] - 'géej Égée ci bëj-saalum...'"
+        }
+    ]
+}

@@ -1,0 +1,75 @@
+# Open VidLib — three-service stack
+# Requires Docker ≥ 24 with Compose v2.
+# Copy .env.example → .env and set MISTRAL_API_KEY before running.
+
+name: open-vidlib
+
+services:
+  db:
+    image: pgvector/pgvector:pg16
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB:       ${POSTGRES_DB:-openvidlib}
+      POSTGRES_USER:     ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changeme}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres} -d ${POSTGRES_DB:-openvidlib}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  api:
+    build:
+      context: ./be-open-vidlib
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL:          postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-changeme}@db:5432/${POSTGRES_DB:-openvidlib}
+      LLM_PROVIDER:          ${LLM_PROVIDER:-}
+      LLM_API_KEY:           ${LLM_API_KEY:-}
+      LLM_BASE_URL:          ${LLM_BASE_URL:-}
+      LLM_MODEL:             ${LLM_MODEL:-}
+      OPENAI_API_KEY:        ${OPENAI_API_KEY:-}
+      OPENAI_BASE_URL:       ${OPENAI_BASE_URL:-}
+      OPENAI_MODEL:          ${OPENAI_MODEL:-gpt-4o-mini}
+      GEMINI_API_KEY:        ${GEMINI_API_KEY:-}
+      GOOGLE_API_KEY:        ${GOOGLE_API_KEY:-}
+      GEMINI_BASE_URL:       ${GEMINI_BASE_URL:-}
+      GEMINI_MODEL:          ${GEMINI_MODEL:-gemini-2.5-flash}
+      EMBEDDING_PROVIDER:    ${EMBEDDING_PROVIDER:-}
+      EMBEDDING_API_KEY:     ${EMBEDDING_API_KEY:-}
+      EMBEDDING_BASE_URL:    ${EMBEDDING_BASE_URL:-}
+      EMBEDDING_MODEL:       ${EMBEDDING_MODEL:-}
+      MISTRAL_API_KEY:       ${MISTRAL_API_KEY:-}
+      MISTRAL_EMBED_MODEL:   ${MISTRAL_EMBED_MODEL:-mistral-embed}
+      MISTRAL_LLM_MODEL:     ${MISTRAL_LLM_MODEL:-mistral-small-latest}
+      MISTRAL_TTS_MODEL:     ${MISTRAL_TTS_MODEL:-voxtral-mini-tts-2603}
+      AGENT_MAX_STEPS:       ${AGENT_MAX_STEPS:-6}
+      AGENT_MEMORY_TURNS:    ${AGENT_MEMORY_TURNS:-4}
+      AGENT_TRAJECTORY_DIR:  /app/trajectories
+      CORS_ORIGINS:          ${CORS_ORIGINS:-http://localhost:3000}
+    ports:
+      - "${API_PORT:-8000}:8000"
+    volumes:
+      - ./be-open-vidlib/static:/app/static  # persists generated dubbing audio
+      - ./be-open-vidlib/trajectories:/app/trajectories  # automatic agent evidence
+
+  web:
+    build:
+      context: ./fe-open-vidlib
+    restart: unless-stopped
+    depends_on:
+      - api
+    environment:
+      NEXT_PUBLIC_API_URL: http://api:8000/api/v1
+    ports:
+      - "${WEB_PORT:-3000}:3000"
+
+volumes:
+  db_data:

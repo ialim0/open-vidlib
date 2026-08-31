@@ -1,0 +1,54 @@
+{
+    "flashcards": [
+        {
+            "question": "Pythagoras bangebaga min na?",
+            "options": [
+                "Athens",
+                "Samos",
+                "Sparta"
+            ],
+            "correctOption": 1,
+            "source": "[00:36] - 'Samos, gun dɔ la...'"
+        },
+        {
+            "question": "Pythagoras bangebaga san jumɛn na?",
+            "options": [
+                "480 kɔnɔ JC",
+                "580 kɔnɔ JC",
+                "680 kɔnɔ JC"
+            ],
+            "correctOption": 1,
+            "source": "[00:34] - '580 kɔnɔ Yesu Kristo'"
+        },
+        {
+            "question": "Yala Pythagoras ka théorème lonbilen a ɲɛ?",
+            "options": [
+                "Ayi, a yɛrɛ y'a lɔn",
+                "Ɔwɔ, Misira mɔgɔw lonbilen a",
+                "An t'a lɔn"
+            ],
+            "correctOption": 1,
+            "source": "[00:55] - 'Misira mɔgɔw lonbilen a'"
+        },
+        {
+            "question": "Kalan wɛrɛ jumɛn Pythagoras kalanden jatebɔ kɛrɛfɛ?",
+            "options": [
+                "Furukɔli",
+                "Dolo kunnafoni",
+                "Sɔ kɛcogo"
+            ],
+            "correctOption": 1,
+            "source": "[00:44] - 'dolo kunnafonibagatigi ni hakilimɔgɔ'"
+        },
+        {
+            "question": "Gun Samos bɛ yɔrɔ min na?",
+            "options": [
+                "Kɔgɔji Méditerranée kɔnɔ",
+                "Kɔgɔji Égée kɔnɔ",
+                "Kɔgɔji Fin kɔnɔ"
+            ],
+            "correctOption": 1,
+            "source": "[00:38] - 'kɔgɔji Égée worodugu fɛ...'"
+        }
+    ]
+}

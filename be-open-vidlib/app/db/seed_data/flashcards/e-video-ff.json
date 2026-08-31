@@ -1,0 +1,54 @@
+{
+    "flashcards": [
+        {
+            "question": "Noy blokaaji calcaire waɗi Piramide Mawnde?",
+            "options": [
+                "Miliyoŋ gooto",
+                "Miliyoŋ ɗiɗi ɓuri",
+                "Miliyoŋ tati"
+            ],
+            "correctOption": 1,
+            "source": "[00:34] - 'ɓuri miliyoŋ ɗiɗi blokaaji...'"
+        },
+        {
+            "question": "Hol ko tonnde blokaaji gooto?",
+            "options": [
+                "Ton gooto",
+                "Tonaaji ɗiɗi e nder",
+                "Tonaaji jowi"
+            ],
+            "correctOption": 1,
+            "source": "[00:42] - 'tonnde tonaaji ɗiɗi e nder'"
+        },
+        {
+            "question": "Hol ko Farawna waɗtaa Piramide ndee?",
+            "options": [
+                "Ramsès II",
+                "Toutânkhamon",
+                "Khéops"
+            ],
+            "correctOption": 2,
+            "source": "[00:49] - 'bakka Farawna... Khéops'"
+        },
+        {
+            "question": "Hol ko ɓatakondiral piramide ndee?",
+            "options": [
+                "136 mètre",
+                "146 mètre",
+                "156 mètre"
+            ],
+            "correctOption": 1,
+            "source": "[01:03] - '146 mètre ɓatakondiral'"
+        },
+        {
+            "question": "Hitaande wonɗe woni mahndorgal mawnde neɗɗo mbaɗi?",
+            "options": [
+                "1 000 hitaande",
+                "2 000 hitaande",
+                "3 500 hitaande"
+            ],
+            "correctOption": 2,
+            "source": "[00:59] - 'Hitaande 3 500...'"
+        }
+    ]
+}
